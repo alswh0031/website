@@ -7,23 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 06 Dec 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Getting Started with Hugo</title>
+      <title>Python Basics 1</title>
       <link>/posts/hugoisforlovers/</link>
-      <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/hugoisforlovers/</guid>
-      <description>Step 1. Install Hugo Go to Hugo releases and download the appropriate version for your OS and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at Install Hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
-Follow the following steps:
- Clone the Hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+      <description>Download available at My Github Page
+First, load the dataset faithful.
+import pandas as pd faithful=pd.read_csv(&amp;quot;https://vincentarelbundock.github.io/Rdatasets/csv/datasets/faithful.csv&amp;quot;) x=faithful type(x) Check the dataset by loading the first five rows.
+faithful.head() </description>
     </item>
     
   </channel>
