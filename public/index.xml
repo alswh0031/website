@@ -63,6 +63,16 @@ Thanks for dropping by and feel free to contact via **andrewminjolee@gmail.com**
     </item>
     
     <item>
+      <title>Examining the Effects of I100S of CDHR3 Solubility in E.coli</title>
+      <link>/projects/examining-the-effects-of-i100s-of-cdhr3-solubility-in-e.coli/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/examining-the-effects-of-i100s-of-cdhr3-solubility-in-e.coli/</guid>
+      <description>Abstract
+Human rhinovirus is a virus that causes common cold illnesses. Rhinovirus C (RV-C), one of the three genetically distinct groups of rhinovirus, is mainly responsible for deadly illnesses such as asthma. On a molecular level, the expression of human protein Cadherin-related facility member (CDHR3), more specifically, its structural domain 1 and 2 are thought to be the binding sites for RV-C that is then introduced in our body. To determine the protein structure and its mechanism, purification can be done.</description>
+    </item>
+    
+    <item>
       <title>The &#34;figure&#34; Shortcode</title>
       <link>/posts/the-figure-shortcode/</link>
       <pubDate>Mon, 24 Dec 2018 12:29:41 +0800</pubDate>
@@ -104,17 +114,6 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
       <guid>/posts/creating-a-new-theme/</guid>
       <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&#39;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&#39;t cover using CSS to style your theme.
 We&#39;ll start with creating a new site with a very basic template.</description>
-    </item>
-    
-    <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>/posts/migrate-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/migrate-from-jekyll/</guid>
-      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
-▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png  should become
-▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png  Additionally, you&#39;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
     </item>
     
   </channel>

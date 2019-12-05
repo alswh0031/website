@@ -30,5 +30,15 @@
       <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) ##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
     </item>
     
+    <item>
+      <title>Examining the Effects of I100S of CDHR3 Solubility in E.coli</title>
+      <link>/projects/examining-the-effects-of-i100s-of-cdhr3-solubility-in-e.coli/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/examining-the-effects-of-i100s-of-cdhr3-solubility-in-e.coli/</guid>
+      <description>Abstract
+Human rhinovirus is a virus that causes common cold illnesses. Rhinovirus C (RV-C), one of the three genetically distinct groups of rhinovirus, is mainly responsible for deadly illnesses such as asthma. On a molecular level, the expression of human protein Cadherin-related facility member (CDHR3), more specifically, its structural domain 1 and 2 are thought to be the binding sites for RV-C that is then introduced in our body. To determine the protein structure and its mechanism, purification can be done.</description>
+    </item>
+    
   </channel>
 </rss>
