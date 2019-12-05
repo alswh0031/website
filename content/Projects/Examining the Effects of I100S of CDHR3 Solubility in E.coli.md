@@ -35,8 +35,8 @@ The expression of CDHR3, a human protein found in lung tissues, is proposed to b
 `Goal of Research` is to devlop an inhibitory mechanism of RV-C binding to CDHR3 (antibody that binds to CDHR3).
 
 However, there are some `current issues of research`:
-* CDHR3 is a membrane receptor protein 
-* CDHR3 remains insoluble making unable to purify protein
+* CDHR3 is a membrane receptor protein.
+* CDHR3 remains insoluble making unable to purify protein.
 
 Therefore, `specific aims` to resolve these issues are:
 1. To introduce point-mutation on a target site via site-directed mutagenesis.
@@ -54,9 +54,9 @@ Site-directed mutagenesis was successfully introduced and confirmed through sequ
 However, Gibson Assembly did not work, which might have caused from not suitable vectors; therefore, different methods of Gibson Assembly should be done. 
 
 ***Future Directions***
-* Restart from creating truncation mutants 
-* To express and purify protein needed for development of antibody
-* Examine its crystal structure for antibody development
+* Restart from creating truncation mutants.
+* To express and purify protein needed for development of antibody.
+* Examine its crystal structure for antibody development.
 
 ***Acknowledgement***
 
