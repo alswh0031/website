@@ -13,21 +13,24 @@
     
     
     <item>
-      <title>Modeling, Testing, and Predicting</title>
-      <link>/projects/modeling-testing-and-predicting/</link>
+      <title>Data Wrangling and Exploratory Data Analysis</title>
+      <link>/projects/project1/</link>
       <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/projects/modeling-testing-and-predicting/</guid>
-      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
+      <guid>/projects/project1/</guid>
+      <description>Data Wrangling and Data Exploration Andrew Lee ml45932
+##0 Introduction getwd() ## [1] &amp;quot;/Users/andrewminjolee/Desktop/website3/content/Projects&amp;quot; performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual’s medical cost charged by healthcare insurance companies. As I’m interested in healthcare and medicine, I’d like to know if there is any interesting relationship between student’s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
     </item>
     
     <item>
-      <title>Data Wrangling and Exploratory Analysis</title>
-      <link>/projects/exploratory-data-analysis/</link>
-      <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
+      <title>Statistical Modeling</title>
+      <link>/projects/project2/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/projects/exploratory-data-analysis/</guid>
-      <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) ##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
+      <guid>/projects/project2/</guid>
+      <description>##Min Jo (Andrew) Lee ml45932
+data(package = .packages(all.available = TRUE)) #0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
+getwd() ## [1] &amp;quot;/Users/andrewminjolee/Desktop/website3/content/Projects&amp;quot; heart&amp;lt;-read.csv(&amp;quot;heart.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) head(heart,10) ## age sex cp trestbps chol fbs restecg thalach exang oldpeak slope ca thal target ## 1 63 1 3 145 233 1 0 150 0 2.3 0 0 1 1 ## 2 37 1 2 130 250 0 1 187 0 3.</description>
     </item>
     
     <item>

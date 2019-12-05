@@ -21,14 +21,5 @@
       <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
     </item>
     
-    <item>
-      <title>Modeling, Testing, and Predicting</title>
-      <link>/projects/modeling-testing-and-predicting/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/projects/modeling-testing-and-predicting/</guid>
-      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
-    </item>
-    
   </channel>
 </rss>

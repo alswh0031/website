@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Statistical Modeling">
+<meta itemprop="description" content="##Min Jo (Andrew) Lee ml45932
+data(package = .packages(all.available = TRUE)) #0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
+getwd() ## [1] &quot;/Users/andrewminjolee/Desktop/website3/content/Projects&quot; heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;) head(heart,10) ## age sex cp trestbps chol fbs restecg thalach exang oldpeak slope ca thal target ## 1 63 1 3 145 233 1 0 150 0 2.3 0 0 1 1 ## 2 37 1 2 130 250 0 1 187 0 3.">
+<meta itemprop="datePublished" content="2019-12-04T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-04T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2627">
+
+
+
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Statistical Modeling" />
+<meta property="og:description" content="##Min Jo (Andrew) Lee ml45932
+data(package = .packages(all.available = TRUE)) #0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
+getwd() ## [1] &quot;/Users/andrewminjolee/Desktop/website3/content/Projects&quot; heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;) head(heart,10) ## age sex cp trestbps chol fbs restecg thalach exang oldpeak slope ca thal target ## 1 63 1 3 145 233 1 0 150 0 2.3 0 0 1 1 ## 2 37 1 2 130 250 0 1 187 0 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/projects/project2/" />
+<meta property="article:published_time" content="2019-12-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-04T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Statistical Modeling"/>
+<meta name="twitter:description" content="##Min Jo (Andrew) Lee ml45932
+data(package = .packages(all.available = TRUE)) #0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
+getwd() ## [1] &quot;/Users/andrewminjolee/Desktop/website3/content/Projects&quot; heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;) head(heart,10) ## age sex cp trestbps chol fbs restecg thalach exang oldpeak slope ca thal target ## 1 63 1 3 145 233 1 0 150 0 2.3 0 0 1 1 ## 2 37 1 2 130 250 0 1 187 0 3."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Statistical Modeling</title>
+	<link rel="stylesheet" href="/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="/">ㅇㅁㅈ</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="/about-hugo/">About</a>
+				<a href="/posts/">Posts</a>
+				<a href="/projects/">Projects</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://linkedin.com/in/andrewminjolee/" target="_blank" rel="noopener me" title="Linkedin"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="https://instagram.com/mandrewlee_98/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://youtube.com/channel/UC686S0zHhZl3z5KwgAKt0iA" target="_blank" rel="noopener me" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="/about-hugo/">About</a></li>
+			<li><a href="/posts/">Posts</a></li>
+			<li><a href="/projects/">Projects</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner thin animated fadeIn faster">
+		<h1>Statistical Modeling</h1>
+		<div class="content">
+			
+
+
+<p>##Min Jo (Andrew) Lee ml45932</p>
+<pre class="r"><code>data(package = .packages(all.available = TRUE))</code></pre>
+<p>#0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1]
+&quot;/Users/andrewminjolee/Desktop/website3/content/Projects&quot;</code></pre>
+<pre class="r"><code>heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;)
+head(heart,10)</code></pre>
+<pre><code>## age sex cp trestbps chol fbs restecg thalach exang
+oldpeak slope ca thal target
+## 1 63 1 3 145 233 1 0 150 0 2.3 0 0 1 1
+## 2 37 1 2 130 250 0 1 187 0 3.5 0 0 2 1
+## 3 41 0 1 130 204 0 0 172 0 1.4 2 0 2 1
+## 4 56 1 1 120 236 0 1 178 0 0.8 2 0 2 1
+## 5 57 0 0 120 354 0 1 163 1 0.6 2 0 2 1
+## 6 57 1 0 140 192 0 1 148 0 0.4 1 0 1 1
+## 7 56 0 1 140 294 0 0 153 0 1.3 1 0 2 1
+## 8 44 1 1 120 263 0 1 173 0 0.0 2 0 3 1
+## 9 52 1 2 172 199 1 1 162 0 0.5 2 0 3 1
+## 10 57 1 2 150 168 0 1 174 0 1.6 2 0 2 1</code></pre>
+<p>I used the heart disease data set that dates from 1988 in Cleveland. Age is age in years. Sex is divided into female (0) and male (1). cp is chest pain type (typical angina, atypical angina, non-angina, or asymptomatic angina); but I don’t know which one is which. trestbps is resting blood pressure (mm Hg). chol is serum cholesterol (mg/dl). thalach is maximum heart rate achieved during thalium stress test. exang is whether angina is exercied induced or not. oldpeak is ST depression induced by exercise relative to rest. slope is slope of peak exercise ST segment. ca is the number of major vessels colored by fluroscopy. thal is the thalium stress test result (normal, fixed defect, or reversible defect). target is whether a patient has a heart disease (y=0: heart disease;y=1: no).
+#1. (15 pts) Perform a MANOVA testing whether any of your numeric variables(or a subset of them, if including them all doesn’t make sense) show a mean difference across levels of one of your categorical variables (3). If they do, perform univariate ANOVAs to find responses(s) showing a mean difference across groups (3), and perform post-hoc t tests to find which group differ (3). Discuss the number of tests you have performed, calculate the probability of at least one type I error (if unadjusted), ad adjust the significance level accordingly (bonferroni correction) before discussing significant differences (3). Briefly discuss assumptions and whether or not they are likely to have been met (2).</p>
+<pre class="r"><code>#MANOVA
+man1&lt;-manova(cbind(trestbps,chol,thalach,oldpeak)~cp,data=heart)
+summary(man1)</code></pre>
+<pre><code>## Df Pillai approx F num Df den Df Pr(&gt;F)
+## cp 1 0.10169 8.4336 4 298 1.857e-06 ***
+## Residuals 301
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1</code></pre>
+<pre class="r"><code>#univariate ANOVA
+summary.aov(man1)</code></pre>
+<pre><code>## Response trestbps :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## cp 1 211 210.54 0.6838 0.4089
+## Residuals 301 92681 307.91
+##
+## Response chol :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## cp 1 4798 4798.3 1.7908 0.1818
+## Residuals 301 806503 2679.4
+##
+## Response thalach :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## cp 1 13860 13859.9 28.854 1.564e-07 ***
+## Residuals 301 144583 480.3
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Response oldpeak :
+## Df Sum Sq Mean Sq F value Pr(&gt;F)
+## cp 1 9.07 9.0665 6.8558 0.009282 **
+## Residuals 301 398.06 1.3225
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1</code></pre>
+<pre class="r"><code>heart%&gt;%group_by(cp)%&gt;%
+  summarize(mean(trestbps),mean(chol), mean(thalach),mean(oldpeak))</code></pre>
+<pre><code>## # A tibble: 4 x 5
+## cp `mean(trestbps)` `mean(chol)` `mean(thalach)`
+`mean(oldpeak)`
+## &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0 132.  250.  141.  1.38
+## 2 1 128.  245.  162.  0.316
+## 3 2 130.  243.  156.  0.798
+## 4 3 141.  237.  156.  1.39</code></pre>
+<pre class="r"><code>#t tests
+pairwise.t.test(heart$trestbps,heart$cp,p.adj=&quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  heart$trestbps and heart$cp 
+## 
+##   0      1      2     
+## 1 0.2056 -      -     
+## 2 0.4876 0.5214 -     
+## 3 0.0241 0.0047 0.0105
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(heart$chol,heart$cp,p.adj=&quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  heart$chol and heart$cp 
+## 
+##   0    1    2   
+## 1 0.53 -    -   
+## 2 0.33 0.86 -   
+## 3 0.27 0.56 0.62
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(heart$thalach,heart$cp,p.adj=&quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  heart$thalach and heart$cp 
+## 
+##   0       1      2     
+## 1 1.2e-09 -      -     
+## 2 3.2e-07 0.0713 -     
+## 3 0.0013  0.2273 0.9443
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>pairwise.t.test(heart$oldpeak,heart$cp,p.adj=&quot;none&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  heart$oldpeak and heart$cp 
+## 
+##   0       1       2      
+## 1 7.4e-09 -       -      
+## 2 9.9e-05 0.01342 -      
+## 3 0.97371 0.00011 0.02102
+## 
+## P value adjustment method: none</code></pre>
+<pre class="r"><code>1-.95^(21)</code></pre>
+<pre><code>## [1] 0.6594384</code></pre>
+<p>1 MANOVA, 4 ANOVA 12 t-tests, all of which sum up to total of 21 tests. The probability of at least one type I error is .659. The adjusted significance level is 0.05/21 = 0.0024.
+The maximum heart rate achieved during thalium stress test is different across the levels, more specifically, chest pain type 0 differs from the other three (0 vs 1, 0 vs 2, 0 vs 3). ST depression induced by exercise relative to rest is different (0 vs 1, 0 vs 2, 1 vs 3).
+Random sample assumption is most likely not met since the samples were collected. Samples were independent and large enough (25+). Equal variance.
+#2. (10 pts) Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results (7). Create a plot visualizing the null distirbution and the test statistic (3).</p>
+<pre class="r"><code>ggplot(heart,aes(chol,fill=sex))+geom_histogram(bins=6.5)+facet_wrap(~sex,ncol=2)+theme(legend.position=&quot;none&quot;)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>heart%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean_diff:`
+##          &lt;dbl&gt;
+## 1        -22.0</code></pre>
+<pre class="r"><code>perm1&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol))
+perm1%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean_diff:`
+##          &lt;dbl&gt;
+## 1         2.29</code></pre>
+<pre class="r"><code>perm2&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm2%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean_diff:`
+##          &lt;dbl&gt;
+## 1        -5.85</code></pre>
+<pre class="r"><code>perm3&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm3%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean_diff:`
+##          &lt;dbl&gt;
+## 1         7.03</code></pre>
+<pre class="r"><code>rand_dist&lt;-vector()
+for(i in 1:5000){
+new&lt;-data.frame(chol=sample(heart$chol),sex=heart$sex)
+rand_dist[i]&lt;-mean(new[new$sex==0,]$chol)-
+ mean(new[new$sex==1,]$chol)}
+{hist(rand_dist,main=&quot;&quot;,ylab=&quot;&quot;); abline(v = -22.01,col=&quot;red&quot;)}</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-4-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>mean(rand_dist&gt;22.01)*2</code></pre>
+<pre><code>## [1] 4e-04</code></pre>
+<pre class="r"><code>t.test(data=heart,chol~sex)</code></pre>
+<pre><code>##
+## Welch Two Sample t-test
+##
+## data: chol by sex
+## t = 3.0244, df = 134.39, p-value = 0.002985
+## alternative hypothesis: true difference in means is not
+equal to 0
+## 95 percent confidence interval:
+## 7.617474 36.406982
+## sample estimates:
+## mean in group 0 mean in group 1
+## 261.3021 239.2899</code></pre>
+<pre class="r"><code>obs_F&lt;-22.01
+Fs&lt;-replicate(5000,{
+ new&lt;-heart%&gt;%mutate(chol=sample(chol))
+ SSW&lt;- new%&gt;%group_by(sex)%&gt;%summarize(SSW=sum((chol-mean(chol))^2))%&gt;%
+   summarize(sum(SSW))%&gt;%pull
+ SSB&lt;- new%&gt;%mutate(mean=mean(chol))%&gt;%group_by(sex)%&gt;%
+   mutate(groupmean=mean(chol))%&gt;%
+ summarize(SSB=sum((mean-groupmean)^2))%&gt;%summarize(sum(SSB))%&gt;%pull
+ (SSB/2)/(SSW/57)})
+hist(Fs, prob=T); abline(v = obs_F, col=&quot;red&quot;,add=T)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-4-3.png" width="768" style="display: block; margin: auto;" />
+Null: mean cholesterol level is the same for female vs. male patients. Alternative: mean cholesterol level is different for female vs. male patients. We can reject the null hypothesis as the mean choleterol level is significantly different for female vs. male patients.
+#3. (35 pts) Build a linear regression model prediciting one of your response variables from at least 2 other variables, including their interactions. Mean-center any numeric variables involved in the interaction. Interpret the coefficient estimates (do not discuss significance) (10) Plot the regression using ggplot(). If your interaction is numeric by numeric, refer to code near the end of WS15 to make the plot. If you have 3 or more predictors, just chose two to plot for convenience. (7) Check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test (3) Regardless, recompute regression results with robust standard errors via coeftest(…, vcov=vcovHC(…)). Discuss significance of results, including any changes from before/after robust SEs if applicable. (7) What proportion of the variation in the outcome does your model explain? (3)</p>
+<pre class="r"><code>fit&lt;-lm(chol ~ trestbps + thalach, data=heart)
+summary(fit)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = chol ~ trestbps + thalach, data = heart)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -126.72 -33.24 -5.74 28.45 323.88
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 199.847987 30.402441 6.573 2.18e-10 ***
+## trestbps 0.363439 0.169509 2.144 0.0328 *
+## thalach -0.009497 0.129791 -0.073 0.9417
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 51.61 on 300 degrees of freedom
+## Multiple R-squared: 0.01519, Adjusted R-squared:
+0.008624
+## F-statistic: 2.314 on 2 and 300 DF, p-value: 0.1007</code></pre>
+<pre class="r"><code>qplot(x = thalach, y = chol, data = heart) +
+ stat_smooth(method = &quot;lm&quot;, se = FALSE, fullrange = TRUE)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>heart&lt;-heart%&gt;%mutate(thalach_c=thalach-mean(thalach),   trestbps_c=trestbps-mean(trestbps))
+fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+summary(fit1)</code></pre>
+<pre><code>##
+## Call:
+## lm(formula = chol ~ trestbps_c * thalach_c, data =
+heart)
+##
+## Residuals:
+## Min 1Q Median 3Q Max
+## -125.02 -34.20 -5.40 27.72 323.23
+##
+## Coefficients:
+## Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 246.196995 2.972035 82.838 &lt;2e-16 ***
+## trestbps_c 0.357710 0.170170 2.102 0.0364 *
+## thalach_c -0.008973 0.129965 -0.069 0.9450
+## trestbps_c:thalach_c -0.003585 0.007647 -0.469 0.6395
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1
+##
+## Residual standard error: 51.67 on 299 degrees of freedom
+## Multiple R-squared: 0.01591, Adjusted R-squared:
+0.006039
+## F-statistic: 1.612 on 3 and 299 DF, p-value: 0.1867</code></pre>
+<pre class="r"><code>resids&lt;-fit1$residuals
+fitvals&lt;-fit1$fitted.values
+#Linearity and homoskedasticity look normal. 
+ggplot()+geom_point(aes(fitvals,resids))+geom_hline(yintercept=0, col=&quot;red&quot;)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-5-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(lmtest)
+bptest(fit1)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit1
+## BP = 0.26203, df = 3, p-value = 0.967</code></pre>
+<pre class="r"><code>#normality looks normal.
+ggplot()+geom_histogram(aes(resids),bins=20)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-5-3.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot()+geom_qq(aes(sample=resids))+geom_qq_line(aes(sample=resids), color=&#39;red&#39;)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-5-4.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#hypothesis test
+ks.test(resids, &quot;pnorm&quot;, mean=0, sd(resids))</code></pre>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  resids
+## D = 0.056864, p-value = 0.2811
+## alternative hypothesis: two-sided</code></pre>
+<pre class="r"><code>#robust SEs 
+library(sandwich)
+summary(fit1)$coef[,1:2]</code></pre>
+<pre><code>##                           Estimate  Std. Error
+## (Intercept)          246.196995437 2.972035310
+## trestbps_c             0.357709672 0.170169644
+## thalach_c             -0.008973280 0.129964707
+## trestbps_c:thalach_c  -0.003585077 0.007646917</code></pre>
+<pre class="r"><code>coeftest(fit1, vcov=vcovHC(fit1))[,1:2]</code></pre>
+<pre><code>##                           Estimate  Std. Error
+## (Intercept)          246.196995437 2.982220199
+## trestbps_c             0.357709672 0.159020831
+## thalach_c             -0.008973280 0.116801156
+## trestbps_c:thalach_c  -0.003585077 0.007261943</code></pre>
+<pre class="r"><code>#Proportion of the variation explained by the model 
+summary(fit1)$r.sq</code></pre>
+<pre><code>## [1] 0.01591288</code></pre>
+<p>While controlling for trestbps, thalach does not explain variation.
+While controlling for thalach, trestbps does not explain variation.
+199.8 is the predicted value of cholesterol level when trestbps and thalch are zero. .3634 is the slop for trestbps on chol while holding thalach constant. -.009497 is the slop for thalach on chol while holding trestbps constant.
+After the robust SEs, intercept:2.97,trestbps_c:.157,thalach_c: .115,trestbps_c:thalach_c:.00725.
+#4. (5 pts) Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)</p>
+<pre class="r"><code>fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+samp_distn&lt;-replicate(5000, {
+ boot_dat&lt;-heart[sample(nrow(heart),replace=TRUE),]
+ fit1&lt;-lm(chol~trestbps_c*thalach_c,data=boot_dat)
+ coef(fit1)})
+## Estimated SEs
+samp_distn%&gt;%t%&gt;%as.data.frame%&gt;%summarize_all(sd)</code></pre>
+<pre><code>##   (Intercept) trestbps_c thalach_c trestbps_c:thalach_c
+## 1    2.955813   0.161106 0.1164176          0.007164121</code></pre>
+<p>Intercept: -&gt;2.96, trestbps_c: -&gt;.161, thalach_c: -&gt;.115, trestbps_c:thalach_c: -&gt;.00718.
+#5. (40 pts) Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary). Interpret coefficient estimates in context (10) Report a confusion matrix for your logistic regression (2) Compute and discuss the Accuracy, Sensitivity (TPR), Specificity (TNR), and Recall (PPV) of your model (5) Using ggplot, plot density of log-odds (logit) by your binary outcome variable (3) Generate an ROC curve (plot) and calculate AUC (either manually or with a package); interpret (10) Perform 10-fold (or repeated random sub-sampling) CV and report average out-of-sample Accuracy, Sensitivity, and Recall (10)</p>
+<pre class="r"><code>class_diag&lt;-function(probs,truth){
+ tab&lt;-table(factor(probs&gt;.5,levels=c(&quot;FALSE&quot;,&quot;TRUE&quot;)),truth)
+ acc=sum(diag(tab))/sum(tab)
+ sens=tab[2,2]/colSums(tab)[2]
+ spec=tab[1,1]/colSums(tab)[1]
+ ppv=tab[2,2]/rowSums(tab)[2]
+ if(is.numeric(truth)==FALSE &amp; is.logical(truth)==FALSE) truth&lt;-as.numeric(truth)-1
+ ord&lt;-order(probs, decreasing=TRUE)
+ probs &lt;- probs[ord]; truth &lt;- truth[ord]
+ TPR=cumsum(truth)/max(1,sum(truth))
+ FPR=cumsum(!truth)/max(1,sum(!truth))
+ dup&lt;-c(probs[-1]&gt;=probs[-length(probs)], FALSE)
+ TPR&lt;-c(0,TPR[!dup],1); FPR&lt;-c(0,FPR[!dup],1)
+ n &lt;- length(TPR)
+ auc&lt;- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+ data.frame(acc,sens,spec,ppv,auc)} 
+#logistic regression
+odds&lt;-function(x)x/(1-x)
+x&lt;-seq(0,1,by=.1)
+cbind(x, odds=odds(x))%&gt;%round(4)</code></pre>
+<pre><code>##         x   odds
+##  [1,] 0.0 0.0000
+##  [2,] 0.1 0.1111
+##  [3,] 0.2 0.2500
+##  [4,] 0.3 0.4286
+##  [5,] 0.4 0.6667
+##  [6,] 0.5 1.0000
+##  [7,] 0.6 1.5000
+##  [8,] 0.7 2.3333
+##  [9,] 0.8 4.0000
+## [10,] 0.9 9.0000
+## [11,] 1.0    Inf</code></pre>
+<pre class="r"><code>logit&lt;-function(x)log(odds(x))
+cbind(x, odds=odds(x),logit=logit(x))%&gt;%round(4)</code></pre>
+<pre><code>##         x   odds   logit
+##  [1,] 0.0 0.0000    -Inf
+##  [2,] 0.1 0.1111 -2.1972
+##  [3,] 0.2 0.2500 -1.3863
+##  [4,] 0.3 0.4286 -0.8473
+##  [5,] 0.4 0.6667 -0.4055
+##  [6,] 0.5 1.0000  0.0000
+##  [7,] 0.6 1.5000  0.4055
+##  [8,] 0.7 2.3333  0.8473
+##  [9,] 0.8 4.0000  1.3863
+## [10,] 0.9 9.0000  2.1972
+## [11,] 1.0    Inf     Inf</code></pre>
+<pre class="r"><code>logfit&lt;-glm(target~sex+cp,data=heart,family=binomial(link=&quot;logit&quot;))
+coeftest(logfit)</code></pre>
+<pre><code>##
+## z test of coefficients:
+##
+## Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) 0.27927 0.26674 1.0470 0.2951
+## sex -1.43131 0.30171 -4.7439 2.096e-06 ***
+## cp 1.01159 0.14356 7.0463 1.837e-12 ***
+## ---
+## Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1
+&#39; &#39; 1</code></pre>
+<pre class="r"><code>exp(coeftest(logfit))</code></pre>
+<pre><code>## 
+## z test of coefficients:
+## 
+##             Estimate Std. Error   z value Pr(&gt;|z|)
+## (Intercept)   1.3222     1.3057    2.8490    1.343
+## sex           0.2390     1.3522    0.0087    1.000
+## cp            2.7500     1.1544 1148.6084    1.000</code></pre>
+<pre class="r"><code>#confusion matrix
+prob&lt;-predict(logfit,type=&quot;response&quot;)
+pred&lt;-ifelse(prob&gt;.5,1,0)
+table(prediction=pred,truth=heart$target)%&gt;%addmargins</code></pre>
+<pre><code>##           truth
+## prediction   0   1 Sum
+##        0    90  46 136
+##        1    48 119 167
+##        Sum 138 165 303</code></pre>
+<pre class="r"><code>#Accuracy
+(90+119)/303 </code></pre>
+<pre><code>## [1] 0.689769</code></pre>
+<pre class="r"><code>#Sensitivity(TPR)
+119/165</code></pre>
+<pre><code>## [1] 0.7212121</code></pre>
+<pre class="r"><code>#Specificity(TNR)
+90/138</code></pre>
+<pre><code>## [1] 0.6521739</code></pre>
+<pre class="r"><code>#Precision(PPV)
+119/167</code></pre>
+<pre><code>## [1] 0.7125749</code></pre>
+<pre class="r"><code>#density plot of log-odds
+heart$logit&lt;-predict(logfit)
+heart$outcome&lt;-factor(heart$target,levels=c(1,0))
+ggplot(heart,aes(logit, fill=outcome))+geom_density(alpha=.3)</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#ROC and AUC
+heart$prob&lt;-predict(logfit,type=&quot;response&quot;)
+sens&lt;-function(p,data=heart, y=target) mean(heart[heart$target==1,]$prob&gt;p)
+spec&lt;-function(p,data=heart, y=target) mean(heart[heart$target==0,]$prob&lt;p)
+sensitivity&lt;-sapply(seq(0,1,.01),sens,heart)
+specificity&lt;-sapply(seq(0,1,.01),spec,heart)
+ROC1&lt;-data.frame(sensitivity,specificity,cutoff=seq(0,1,.01))
+ROC1$TPR&lt;-sensitivity
+ROC1$FPR&lt;-1-specificity
+ROC1%&gt;%ggplot(aes(FPR,TPR))+geom_path(size=1.5)+geom_segment(aes(x=0,y=0,xend=1,yend=1),lty=2)+scale_x_continuous(limits = c(0,1))</code></pre>
+<p><img src="/Projects/project2_files/figure-html/unnamed-chunk-7-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ROCplot&lt;-ggplot(heart)+geom_roc(aes(d=target,m=prob), n.cuts=0)+
+ geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) 
+calc_auc(ROCplot)</code></pre>
+<pre><code>##   PANEL group       AUC
+## 1     1    -1 0.7869346</code></pre>
+<pre class="r"><code>#10-fold CV
+set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp,data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))}
+apply(diags,2,mean)</code></pre>
+<pre><code>##       acc      sens      spec       ppv       auc 
+## 0.6898925 0.7288023 0.6493347 0.7129782 0.7826777</code></pre>
+<p>Controlling for cp, sex and target are not significantly different.
+Controlling for sex, cp and target are not significantly different.
+AUC is 0.787 (fair and close to good), which is not good enough to predict whether a paitent has a heart disease only from sex and chest pain type.
+Accuracy and Sensitivity after 10-fold CV are .689 and .721, respectively.
+#6. (10 pts) Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., lambda.1se). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5.</p>
+<pre class="r"><code>y&lt;-as.matrix(heart$target)
+x&lt;-heart%&gt;%dplyr::select(-target,-logit,-outcome,-prob)%&gt;%mutate_all(scale)%&gt;%as.matrix
+cv&lt;-cv.glmnet(x,y)
+lasso&lt;-glmnet(x,y,lambda=cv$lambda.1se)
+coef(lasso)</code></pre>
+<pre><code>## 16 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                      s0
+## (Intercept)  0.54455446
+## age          .         
+## sex         -0.04452006
+## cp           0.08641215
+## trestbps     .         
+## chol         .         
+## fbs          .         
+## restecg      .         
+## thalach      0.05386822
+## exang       -0.05907807
+## oldpeak     -0.06942134
+## slope        0.01938316
+## ca          -0.07783472
+## thal        -0.04846532
+## thalach_c    .         
+## trestbps_c   .</code></pre>
+<pre class="r"><code>fit&lt;-lm(target~.,data=heart)
+yhat&lt;-predict(fit)
+mean((heart$target-yhat)^2)</code></pre>
+<pre><code>## [1] 3.510462e-30</code></pre>
+<pre class="r"><code>set.seed(1234)
+k=10
+data1&lt;-heart[sample(nrow(heart)),] 
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F)
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data1[folds!=i,]
+ test&lt;-data1[folds==i,]
+ fit&lt;-lm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,data=train)
+ yhat&lt;-predict(fit,newdata=test)
+ diags&lt;-mean((test$target-yhat)^2)} 
+mean(diags)</code></pre>
+<pre><code>## [1] 0.1909287</code></pre>
+<pre class="r"><code>set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,
+          data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))
+}
+apply(diags,2,mean)</code></pre>
+<pre><code>##       acc      sens      spec       ppv       auc 
+## 0.8515054 0.9172416 0.7598368 0.8302440 0.9096877</code></pre>
+<p>Based on the lasso regression, sex, cp, thalach, exang, oldpeak, slope, ca, and thal are retained. Compared to the log regression model from the previous questions, AUC has become much better (AUC = .912) along with accuracy (ACC = .851). Also the mean squared error has become a lot smaller (MSE = 0.0962), which means it’s much better.</p>
+
+		</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="/">Min Jo Lee</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="/js/bundle.min.4a9a0ac3d2217822c7865b4161e6c2a71de1d70492264337755427898dd718f6.js" integrity="sha256-SpoKw9IheCLHhltBYebCpx3h1wSSJkM3dVQniY3XGPY=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

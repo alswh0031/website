@@ -1,15 +1,15 @@
 ---
-date: "2019-12-05"
-tags:
-- R
-- dataScience
-- modeling
-- testing
-- predicting
-title: Modeling, Testing, and Predicting 
-toc: true
----
-
+title: 'Statistical Modeling'
+author: "SDS348 Fall 2019"
+date: '2019-12-04'
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: yes
 ---
 ```{r setup, include=FALSE}
 library(knitr)
@@ -24,10 +24,20 @@ knit_hooks$set(output = function(x, options) {
   }
   hook_output(x, options)})
 
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,fig.align="center",warning=FALSE,message=FALSE,fig.width=8, fig.height=5, linewidth=60)
+options(tibble.width = 100,width = 100)
+library(tidyverse)
+library(plotROC) 
+library(pROC)
+library(MASS)
+library(ggplot2)
+library(glmnet)
+```
+##Min Jo (Andrew) Lee ml45932
 ```{R eval=F}
 data(package = .packages(all.available = TRUE))
 ```
-#0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
+#0. (5 pts) Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.
 ```{R}
 getwd()
 heart<-read.csv("heart.csv",TRUE,",")
@@ -53,8 +63,7 @@ pairwise.t.test(heart$oldpeak,heart$cp,p.adj="none")
 1 MANOVA, 4 ANOVA 12 t-tests, all of which sum up to total of 21 tests. The probability of at least one type I error is .659. The adjusted significance level is 0.05/21 = 0.0024.
 The maximum heart rate achieved during thalium stress test is different across the levels, more specifically, chest pain type 0 differs from the other three (0 vs 1, 0 vs 2, 0 vs 3). ST depression induced by exercise relative to rest is different (0 vs 1, 0 vs 2, 1 vs 3).
 Random sample assumption is most likely not met since the samples were collected. Samples were independent and large enough (25+). Equal variance.
-
-#2. Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results. Create a plot visualizing the null distirbution and the test statistic. 
+#2. (10 pts) Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results (7). Create a plot visualizing the null distirbution and the test statistic (3). 
 ```{R}
 ggplot(heart,aes(chol,fill=sex))+geom_histogram(bins=6.5)+facet_wrap(~sex,ncol=2)+theme(legend.position="none")
 heart%>%group_by(sex)%>%
@@ -88,8 +97,7 @@ Fs<-replicate(5000,{
 hist(Fs, prob=T); abline(v = obs_F, col="red",add=T)
 ```
 Null: mean cholesterol level is the same for female vs. male patients. Alternative: mean cholesterol level is different for female vs. male patients. We can reject the null hypothesis as the mean choleterol level is significantly different for female vs. male patients. 
-
-#3.Build a linear regression model prediciting one of your response variables from at least 2 other variables, including their interactions. Mean-center any numeric variables involved in the interaction. Interpret the coefficient estimates (do not discuss significance). Plot the regression using ggplot(). If your interaction is numeric by numeric, refer to code near the end of WS15 to make the plot. If you have 3 or more predictors, just chose two to plot for convenience. Check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test. Regardless, recompute regression results with robust standard errors via coeftest(..., vcov=vcovHC(...)). Discuss significance of results, including any changes from before/after robust SEs if applicable. What proportion of the variation in the outcome does your model explain?
+#3. (35 pts) Build a linear regression model prediciting one of your response variables from at least 2 other variables, including their interactions. Mean-center any numeric variables involved in the interaction. Interpret the coefficient estimates (do not discuss significance) (10) Plot the regression using ggplot(). If your interaction is numeric by numeric, refer to code near the end of WS15 to make the plot. If you have 3 or more predictors, just chose two to plot for convenience. (7) Check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test (3) Regardless, recompute regression results with robust standard errors via coeftest(..., vcov=vcovHC(...)). Discuss significance of results, including any changes from before/after robust SEs if applicable. (7) What proportion of the variation in the outcome does your model explain? (3)
 ```{R}
 fit<-lm(chol ~ trestbps + thalach, data=heart)
 summary(fit)
@@ -120,8 +128,7 @@ While controlling for trestbps, thalach does not explain variation.
 While controlling for thalach, trestbps does not explain variation. 
 199.8 is the predicted value of cholesterol level when trestbps and thalch are zero. .3634 is the slop for trestbps on chol while holding thalach constant. -.009497 is the slop for thalach on chol while holding trestbps constant. 
 After the robust SEs, intercept:2.97,trestbps_c:.157,thalach_c: .115,trestbps_c:thalach_c:.00725.
-
-#4.Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)
+#4. (5 pts) Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)
 ```{R}
 fit1<-lm(chol~trestbps_c*thalach_c,data=heart)
 samp_distn<-replicate(5000, {
@@ -132,8 +139,7 @@ samp_distn<-replicate(5000, {
 samp_distn%>%t%>%as.data.frame%>%summarize_all(sd)
 ```
 Intercept: ->2.96, trestbps_c: ->.161, thalach_c: ->.115, trestbps_c:thalach_c: ->.00718. 
-
-#5.Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary). Interpret coefficient estimates in context. Report a confusion matrix for your logistic regression. Compute and discuss the Accuracy, Sensitivity (TPR), Specificity (TNR), and Recall (PPV) of your model. Using ggplot, plot density of log-odds (logit) by your binary outcome variable. Generate an ROC curve (plot) and calculate AUC (either manually or with a package); interpret. Perform 10-fold (or repeated random sub-sampling) CV and report average out-of-sample Accuracy, Sensitivity, and Recall
+#5. (40 pts) Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary). Interpret coefficient estimates in context (10) Report a confusion matrix for your logistic regression (2) Compute and discuss the Accuracy, Sensitivity (TPR), Specificity (TNR), and Recall (PPV) of your model (5) Using ggplot, plot density of log-odds (logit) by your binary outcome variable (3) Generate an ROC curve (plot) and calculate AUC (either manually or with a package); interpret (10) Perform 10-fold (or repeated random sub-sampling) CV and report average out-of-sample Accuracy, Sensitivity, and Recall (10)
 ```{R}
 class_diag<-function(probs,truth){
  tab<-table(factor(probs>.5,levels=c("FALSE","TRUE")),truth)
@@ -209,8 +215,7 @@ Controlling for cp, sex and target are not significantly different.
 Controlling for sex, cp and target are not significantly different. 
 AUC is 0.787 (fair and close to good), which is not good enough to predict whether a paitent has a heart disease only from sex and chest pain type. 
 Accuracy and Sensitivity after 10-fold CV are .689 and .721, respectively. 
-
-#6.Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., lambda.1se). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5.
+#6. (10 pts) Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., lambda.1se). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5.
 ```{R}
 y<-as.matrix(heart$target)
 x<-heart%>%dplyr::select(-target,-logit,-outcome,-prob)%>%mutate_all(scale)%>%as.matrix

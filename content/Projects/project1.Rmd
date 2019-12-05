@@ -1,13 +1,15 @@
 ---
-date: "2019-12-04T11:36:33+08:00"
-draft: false
-featuredImg: ""
-tags:
-- R
-- datascience
-- data_wrangling
-- exploratory_analysis
-title: Data Wrangling and Exploratory Analysis
+title: 'Data Wrangling and Exploratory Data Analysis'
+author: "SDS348 Fall 2019"
+date: "2019-12-05"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -19,7 +21,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 opts_chunk$set(fig.align="center", fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE)
 ```
-
+## Data Wrangling and Data Exploration
+Andrew Lee ml45932
 ```{R}
 ##0 Introduction
 getwd()
