@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Data Wrangling and Exploratory Analysis">
+<meta itemprop="description" content="knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&quot;center&quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
+##0 Introduction getwd() performance&lt;-read.csv(&quot;exam.csv&quot;,TRUE,&quot;,&quot;) medicalcost&lt;-read.csv(&quot;insurance.csv&quot;,TRUE,&quot;,&quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.">
+<meta itemprop="datePublished" content="2019-12-04T11:36:33&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-04T11:36:33&#43;08:00" />
+<meta itemprop="wordCount" content="739">
+
+
+
+<meta itemprop="keywords" content="R,datascience,data_wrangling,exploratory_analysis," /><meta property="og:title" content="Data Wrangling and Exploratory Analysis" />
+<meta property="og:description" content="knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&quot;center&quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
+##0 Introduction getwd() performance&lt;-read.csv(&quot;exam.csv&quot;,TRUE,&quot;,&quot;) medicalcost&lt;-read.csv(&quot;insurance.csv&quot;,TRUE,&quot;,&quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/projects/data-wrangling-and-exploratory-analysis/" />
+<meta property="article:published_time" content="2019-12-04T11:36:33+08:00" />
+<meta property="article:modified_time" content="2019-12-04T11:36:33+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Wrangling and Exploratory Analysis"/>
+<meta name="twitter:description" content="knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&quot;center&quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
+##0 Introduction getwd() performance&lt;-read.csv(&quot;exam.csv&quot;,TRUE,&quot;,&quot;) medicalcost&lt;-read.csv(&quot;insurance.csv&quot;,TRUE,&quot;,&quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Data Wrangling and Exploratory Analysis</title>
+	<link rel="stylesheet" href="/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="/">ㅇㅁㅈ</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="/posts/">Posts</a>
+				<a href="/about-hugo/">About</a>
+				<a href="/projects/">Projects</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://linkedin.com/in/andrewminjolee/" target="_blank" rel="noopener me" title="Linkedin"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="https://instagram.com/mandrewlee_98/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://youtube.com/channel/UC686S0zHhZl3z5KwgAKt0iA" target="_blank" rel="noopener me" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="/posts/">Posts</a></li>
+			<li><a href="/about-hugo/">About</a></li>
+			<li><a href="/projects/">Projects</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner thin animated fadeIn faster">
+		<h1>Data Wrangling and Exploratory Analysis</h1>
+		<div class="content">
+			<pre><code class="language-{r" data-lang="{r">knitr::opts_chunk$set(echo = TRUE)
+
+</code></pre><pre><code class="language-{r" data-lang="{r">library(knitr)
+opts_chunk$set(fig.align=&quot;center&quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE)
+</code></pre><h2 id="data-wrangling-and-data-exploration">Data Wrangling and Data Exploration<a href="#data-wrangling-and-data-exploration" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Andrew Lee ml45932</p>
+<pre><code class="language-{R}" data-lang="{R}">##0 Introduction
+getwd()
+performance&lt;-read.csv(&quot;exam.csv&quot;,TRUE,&quot;,&quot;)
+medicalcost&lt;-read.csv(&quot;insurance.csv&quot;,TRUE,&quot;,&quot;)
+</code></pre><p>The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual's medical cost charged by healthcare insurance companies. As I'm interested in healthcare and medicine, I'd like to know if there is any interesting relationship between student's performance and the cost of insurance with consideration of factors like economic, personal, and social.
+One of my assumptions is that since people with free/lunch plan, low parental education, race, and no exam preparation course might indicate their socioeconomic status, they might not be able to maintain health lifestyle, thereby resulting in higher medical cost charged by insurance companies.</p>
+<pre><code class="language-{R}" data-lang="{R}">##1 Tidying: Rearranging Wide/Long
+library(tidyverse)
+performance &lt;- performance%&gt;%na.omit()
+medicalcost &lt;- medicalcost%&gt;%na.omit() 
+
+
+performance1 &lt;- performance%&gt;%pivot_longer(c(6:8))
+performance2 &lt;- performance1%&gt;%pivot_wider(names_from = &quot;name&quot;,values_from = &quot;value&quot;)
+
+
+medicalcost1&lt;-medicalcost%&gt;%select(sex,age,bmi,children,smoker,region,charges)
+medicalcost2&lt;-medicalcost1%&gt;%pivot_longer(c(2:4))  
+medicalcost3 &lt;- medicalcost2%&gt;%
+  pivot_wider(names_from=&quot;name&quot;,values_from=&quot;value&quot;)
+
+
+</code></pre><p>Since the data were already tidy, they were untidied and retidied by using pivot_longer and pivot_wider functions.</p>
+<pre><code class="language-{R}" data-lang="{R}">##2 Joining/Merging
+fulldata &lt;- full_join(performance,medicalcost,by=c(&quot;gender&quot;=&quot;sex&quot;))
+
+</code></pre><p>I used a full_join function as I did not want to drop any factors that may influence student performance as well as medical cost charged.</p>
+<pre><code class="language-{R}" data-lang="{R}">##3 Wrangling
+fulldata1 &lt;- fulldata%&gt;%select(-region,) %&gt;% mutate(race=race.ethnicity) %&gt;%
+  select(-race.ethnicity,) %&gt;% arrange(desc(age))
+#I took out region column as it contains only four across the U.S and becomes unnecessary facotr of my interest
+
+fulldata1%&gt;%group_by(gender) %&gt;% summarize(mean_charges=mean(charges),mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores and medical charges between two genders (1)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(age&gt;mean(age,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(age&lt;mean(age,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+#Age could be a good indictor that might affect medical charges (2)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(smoker==&quot;yes&quot;)%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(smoker==&quot;no&quot;)%&gt;%
+  summarize(mean_charges=mean(charges))
+#Smoking status could also be a good indicator that might affect medical charges (3)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(bmi&gt;mean(bmi,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(bmi&lt;mean(bmi,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+#BMI could be a good indicator that might affect medical charges (4)
+
+fulldata1%&gt;%group_by(test.preparation.course,lunch)%&gt;%
+  filter(math.score&gt;mean(math.score),reading.score&gt;mean(reading.score),
+         writing.score&gt;mean(writing.score))%&gt;% 
+  summarize(mean_charges=mean(charges))
+#economic status could affect medical charges (5)
+
+fulldata1%&gt;%group_by(parental.level.of.education)%&gt;%
+    summarize(mean_charges=mean(charges))%&gt;% arrange(desc(mean_charges))
+#parental level of education might affect medical charges (6)
+
+fulldata1%&gt;%group_by(children)%&gt;%summarize(mean_charges=mean(charges))
+#number of children might affect medical charges (7)
+
+fulldata1%&gt;%group_by(race) %&gt;% summarize(mean_charges=mean(charges),mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores and medical charges among five races (8)
+
+fulldata1%&gt;%group_by(race)%&gt;%summarize(mean_bmi=mean(bmi))
+#Difference in bmi among five races (9)   
+
+fulldata1%&gt;%group_by(smoker)%&gt;%summarize(mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores between smoker and non-smoker (10)
+
+fulldata_nums &lt;- fulldata1%&gt;%select_if(is.numeric)%&gt;%scale
+data_pca &lt;- prcomp(fulldata_nums)
+names(data_pca)
+summary(data_pca)
+data_pca$sdev
+eigen(cor(fulldata_nums))
+#corrleation matrix of the numeric variables
+
+
+</code></pre><p>Female group had higher reading and writing score but male group had higher medical cost and math score.For both of those who are older and yonger than the mean age, the male group had higher medical cost than the female group. For those who smoke, the male group also had higher medical cost but for non-smokers, the female group had higher medical cost. For both of those who have higher and lower BMI than the mean, the male group had higher medical cost. Medical cost was higher for the group with free/reduced lunch plan and no test preparation course but lower for the group with free/reduced plan completion of test preparation course. The higher the parental level of education is, the lower the medical cost is charged. The group with three children had the highest medical cost and the group with five kids had the lowest. All five race groups had similar BMI, though group A was the highest. Non-smoker group had higher reading and writing score than the smoker group.</p>
+<pre><code class="language-{R}" data-lang="{R}">##4 Visualizing
+library(ggplot2)
+
+fulldata2 &lt;- fulldata1%&gt;%distinct()
+
+fulldata2 %&gt;% group_by(race,gender) %&gt;% summarize(mean_char=mean(charges, na.rm=T),sd_char=sd(charges, na.rm=T),n=n(),se_char=sd_char/sqrt(n))%&gt;%
+ggplot(aes(gender,mean_char))+geom_bar(stat=&quot;identity&quot;)+
+geom_errorbar(aes(y=mean_char, ymin = mean_char-se_char, 
+                   ymax = mean_char+se_char))+ facet_wrap(~race)
+
+fulldata2 %&gt;% group_by(race,smoker) %&gt;% summarize(mean_char=mean(charges, na.rm=T),sd_char=sd(charges, na.rm=T),n=n(),se_char=sd_char/sqrt(n))%&gt;%
+ggplot(aes(smoker,mean_char))+geom_bar(stat=&quot;identity&quot;)+
+geom_errorbar(aes(y=mean_char, ymin = mean_char-se_char, 
+                   ymax = mean_char+se_char))+ facet_wrap(~race)
+</code></pre><p>Across all five races, every male group had a higher medical cost charged than the female group and smoker group had a higher medical cost charged than the non-smoker group.</p>
+<pre><code class="language-{R}" data-lang="{R}">
+ggplot(head(fulldata2,500), aes(math.score,charges))+
+geom_point(aes(color=smoker, size=bmi))+
+  scale_x_continuous(name=&quot;math exam score&quot;,breaks=c(20,40,60,80,100))+
+  scale_y_continuous(name=&quot;medicalcost&quot;)
+
+
+</code></pre><p>It is apparent that smoking status affects the medical costas well as BMI but there is no obvious relationship between excam score and medical cost.</p>
+<pre><code class="language-{R}" data-lang="{R}">##5 Dimensionality Reduction
+
+fulldata_nums &lt;- fulldata1%&gt;%select_if(is.numeric)%&gt;%scale
+data_pca1 &lt;- princomp(fulldata_nums)
+summary(data_pca1,loadings=T)
+
+eigval &lt;- data_pca1$sdev^2
+varprop=round(eigval/sum(eigval),2)
+
+ggplot()+geom_bar(aes(y=varprop,x=1:7),stat=&quot;identity&quot;)+xlab(&quot;&quot;)+geom_path(aes(y=varprop,x=1:7))+
+ geom_text(aes(x=1:7,y=varprop,label=round(varprop,2)),vjust=1,col=&quot;white&quot;,size=5)+
+ scale_y_continuous(breaks=seq(0,.6,.2),labels = scales::percent)+
+ scale_x_continuous(breaks=1:10)
+
+
+round(cumsum(eigval)/sum(eigval),2)
+eigval[1:7]
+
+datadf&lt;-data.frame(PC1=data_pca1$scores[,1],PC2=data_pca1$scores[,2])
+ggplot(datadf,aes(PC1,PC2))+geom_point()
+
+
+data_pca1$loadings[1:7,1:2]%&gt;%as.data.frame%&gt;%rownames_to_column%&gt;%
+ggplot()+geom_hline(aes(yintercept=0),lty=2)+
+ geom_vline(aes(xintercept=0),lty=2)+ylab(&quot;PC2&quot;)+xlab(&quot;PC1&quot;)+
+ geom_segment(aes(x=0,y=0,xend=Comp.1,yend=Comp.2),arrow=arrow(),col=&quot;red&quot;)+
+ geom_label(aes(x=Comp.1*1.1,y=Comp.2*1.1,label=rowname))
+</code></pre><p>PC1 and PC2 together can summarize 59% of the total variability.
+Only 2 PCs have eigenvalues greater than 1 but PC3 and PC4 are close.
+There seems to be a strong association of age, bmi, and the number of children with medical charges but not with exam scores.</p>
+
+		</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="/">Min Jo Lee</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="/js/bundle.min.4a9a0ac3d2217822c7865b4161e6c2a71de1d70492264337755427898dd718f6.js" integrity="sha256-SpoKw9IheCLHhltBYebCpx3h1wSSJkM3dVQniY3XGPY=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

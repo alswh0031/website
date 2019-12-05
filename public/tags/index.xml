@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>datascience</title>
+      <title>dataScience</title>
       <link>/tags/datascience/</link>
       <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
       
@@ -58,11 +58,20 @@
     </item>
     
     <item>
-      <title>exploratory_data_analysis</title>
-      <link>/tags/exploratory_data_analysis/</link>
+      <title>data_wrangling</title>
+      <link>/tags/data_wrangling/</link>
       <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
       
-      <guid>/tags/exploratory_data_analysis/</guid>
+      <guid>/tags/data_wrangling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exploratory_analysis</title>
+      <link>/tags/exploratory_analysis/</link>
+      <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
+      
+      <guid>/tags/exploratory_analysis/</guid>
       <description></description>
     </item>
     
@@ -90,15 +99,6 @@
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
       <guid>/tags/plot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/tags/r-markdown/</guid>
       <description></description>
     </item>
     

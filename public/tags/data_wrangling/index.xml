@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data_wrangling on ㅇㅁㅈ</title>
+    <link>/tags/data_wrangling/</link>
+    <description>Recent content in data_wrangling on ㅇㅁㅈ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 04 Dec 2019 11:36:33 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/data_wrangling/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data Wrangling and Exploratory Analysis</title>
+      <link>/projects/exploratory-data-analysis/</link>
+      <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
+      
+      <guid>/projects/exploratory-data-analysis/</guid>
+      <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) ##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,7 +9,7 @@ title: About ㅇㅁㅈ
 Hi there! I study ***Computational Biology*** and ***Business Healthcare*** at **the University of Texas at Austin**. I'm currently learning how to incorporate knowledge and skills of ***Data Science*** into ***Healthcare*** and ***Medicine***. 
 
 
-
+[:page_facing_up:](/img/Resume.pdf)
 
 Feel free to contact via **andrewminjolee@gmail.com**
 

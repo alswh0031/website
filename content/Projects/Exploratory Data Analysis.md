@@ -5,8 +5,9 @@ featuredImg: ""
 tags:
 - R
 - datascience
-- exploratory_data_analysis
-title: Exploratory Data Analysis
+- data_wrangling
+- exploratory_analysis
+title: Data Wrangling and Exploratory Analysis
 ---
 
 ```{r setup, include=FALSE}
@@ -18,8 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 opts_chunk$set(fig.align="center", fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE)
 ```
-## Data Wrangling and Data Exploration
-Andrew Lee ml45932
+
 ```{R}
 ##0 Introduction
 getwd()

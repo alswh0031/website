@@ -18,12 +18,22 @@
   </url>
   
   <url>
+    <loc>/projects/modeling-testing-and-predicting/</loc>
+    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/</loc>
     <lastmod>2019-12-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/predicting/</loc>
+    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/projects/</loc>
     <lastmod>2019-12-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,22 +58,22 @@
   </url>
   
   <url>
-    <loc>/posts/exploratory-data-analysis/</loc>
+    <loc>/projects/exploratory-data-analysis/</loc>
     <lastmod>2019-12-04T11:36:33+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/exploratory_data_analysis/</loc>
+    <loc>/tags/data_wrangling/</loc>
+    <lastmod>2019-12-04T11:36:33+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/exploratory_analysis/</loc>
     <lastmod>2019-12-04T11:36:33+08:00</lastmod>
   </url>
   
   <url>
     <loc>/about-hugo/</loc>
-    <lastmod>2019-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/projects/</loc>
     <lastmod>2019-12-04T00:00:00+00:00</lastmod>
   </url>
   

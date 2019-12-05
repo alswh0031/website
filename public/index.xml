@@ -22,13 +22,21 @@
     </item>
     
     <item>
-      <title>Exploratory Data Analysis</title>
-      <link>/posts/exploratory-data-analysis/</link>
+      <title>Modeling, Testing, and Predicting</title>
+      <link>/projects/modeling-testing-and-predicting/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/modeling-testing-and-predicting/</guid>
+      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
+    </item>
+    
+    <item>
+      <title>Data Wrangling and Exploratory Analysis</title>
+      <link>/projects/exploratory-data-analysis/</link>
       <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
       
-      <guid>/posts/exploratory-data-analysis/</guid>
-      <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
-##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
+      <guid>/projects/exploratory-data-analysis/</guid>
+      <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) ##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
     </item>
     
     <item>
@@ -38,16 +46,7 @@
       
       <guid>/about-hugo/</guid>
       <description>Hi there! I study Computational Biology and Business Healthcare at the University of Texas at Austin. I&#39;m currently learning how to incorporate knowledge and skills of Data Science into Healthcare and Medicine.
-Feel free to contact via **andrewminjolee@gmail.com**</description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>/projects/</link>
-      <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/projects/</guid>
-      <description>Hi there! I study Computational Biology and Business Healthcare at the University of Texas at Austin. I&#39;m currently learning how to incorporate knowledge and skills of Data Science into Healthcare and Medicine.
+📄
 Feel free to contact via **andrewminjolee@gmail.com**</description>
     </item>
     

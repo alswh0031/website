@@ -14,10 +14,10 @@
     
     <item>
       <title>Exploratory Data Analysis</title>
-      <link>/posts/exploratory-data-analysis/</link>
+      <link>/projects/exploratory-data-analysis/</link>
       <pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
       
-      <guid>/posts/exploratory-data-analysis/</guid>
+      <guid>/projects/exploratory-data-analysis/</guid>
       <description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
 ##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
     </item>
