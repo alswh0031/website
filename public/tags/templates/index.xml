@@ -7,19 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/templates/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>(Hu)go Template Primer</title>
-      <link>/posts/goisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <title>Modeling, Testing, and Predicting</title>
+      <link>/posts/modeling-testing-and-predicting/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/goisforlovers/</guid>
-      <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.
-This document is a brief primer on using Go templates.</description>
+      <guid>/posts/modeling-testing-and-predicting/</guid>
+      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
     </item>
     
   </channel>

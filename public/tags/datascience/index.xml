@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Typography on ㅇㅁㅈ</title>
-    <link>/tags/typography/</link>
-    <description>Recent content in Typography on ㅇㅁㅈ</description>
+    <title>datascience on ㅇㅁㅈ</title>
+    <link>/tags/datascience/</link>
+    <description>Recent content in datascience on ㅇㅁㅈ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 04 Dec 2019 11:36:33 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Dec 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/typography/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/datascience/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Modeling, Testing, and Predicting</title>
+      <link>/posts/modeling-testing-and-predicting/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/modeling-testing-and-predicting/</guid>
+      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
+    </item>
     
     <item>
       <title>Exploratory Data Analysis</title>

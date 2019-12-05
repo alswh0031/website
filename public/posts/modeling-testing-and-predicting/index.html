@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Modeling, Testing, and Predicting">
+<meta itemprop="description" content="library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.">
+<meta itemprop="datePublished" content="2019-12-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1331">
+
+
+
+<meta itemprop="keywords" content="R,dataScience,modeling,testing,predicting," /><meta property="og:title" content="Modeling, Testing, and Predicting" />
+<meta property="og:description" content="library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/modeling-testing-and-predicting/" />
+<meta property="article:published_time" content="2019-12-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Modeling, Testing, and Predicting"/>
+<meta name="twitter:description" content="library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Modeling, Testing, and Predicting</title>
+	<link rel="stylesheet" href="/css/style.min.657bcb7af31123e4156b1a3d2ff60a636717e54ead74f882136b5114cf72b55e.css" integrity="sha256-ZXvLevMRI+QVaxo9L/YKY2cX5U6tdPiCE2tRFM9ytV4=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="/">ㅇㅁㅈ</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="/posts/">Posts</a>
+				<a href="/about-hugo/">About</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<button id="toc-btn" class="hdr-btn desktop-only-ib" title="Table of Contents"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg></button><span class="hdr-social hide-in-mobile"><a href="https://linkedin.com/in/andrewminjolee/" target="_blank" rel="noopener me" title="Linkedin"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="https://instagram.com/mandrewlee_98/" target="_blank" rel="noopener me" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://youtube.com/channel/UC686S0zHhZl3z5KwgAKt0iA" target="_blank" rel="noopener me" title="Youtube"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="/posts/">Posts</a></li>
+			<li><a href="/about-hugo/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Dec 5, 2019</span></div>
+				<h1>Modeling, Testing, and Predicting</h1>
+			</header>
+			<div class="content">
+				<hr>
+<pre><code class="language-{r" data-lang="{r">library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n &lt;- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) &gt; n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)})
+
+```{R eval=F}
+data(package = .packages(all.available = TRUE))
+</code></pre><p>#0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</p>
+<pre><code class="language-{R}" data-lang="{R}">getwd()
+heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;)
+head(heart,10)
+</code></pre><p>I used the heart disease data set that dates from 1988 in Cleveland. Age is age in years. Sex is divided into female (0) and male (1). cp is chest pain type (typical angina, atypical angina, non-angina, or asymptomatic angina); but I don't know which one is which. trestbps is resting blood pressure (mm Hg). chol is serum cholesterol (mg/dl). thalach is maximum heart rate achieved during thalium stress test. exang is whether angina is exercied induced or not. oldpeak is ST depression induced by exercise relative to rest. slope is slope of peak exercise ST segment. ca is the number of major vessels colored by fluroscopy. thal is the thalium stress test result (normal, fixed defect, or reversible defect). target is whether a patient has a heart disease (y=0: heart disease;y=1: no).
+#1. (15 pts) Perform a MANOVA testing whether any of your numeric variables(or a subset of them, if including them all doesn't make sense) show a mean difference across levels of one of your categorical variables (3). If they do, perform univariate ANOVAs to find responses(s) showing a mean difference across groups (3), and perform post-hoc t tests to find which group differ (3). Discuss the number of tests you have performed, calculate the probability of at least one type I error (if unadjusted), ad adjust the significance level accordingly (bonferroni correction) before discussing significant differences (3). Briefly discuss assumptions and whether or not they are likely to have been met (2).</p>
+<pre><code class="language-{R}" data-lang="{R}">#MANOVA
+man1&lt;-manova(cbind(trestbps,chol,thalach,oldpeak)~cp,data=heart)
+summary(man1)
+#univariate ANOVA
+summary.aov(man1)
+heart%&gt;%group_by(cp)%&gt;%
+  summarize(mean(trestbps),mean(chol), mean(thalach),mean(oldpeak))
+#t tests
+pairwise.t.test(heart$trestbps,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$chol,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$thalach,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$oldpeak,heart$cp,p.adj=&quot;none&quot;)
+1-.95^(21)
+</code></pre><p>1 MANOVA, 4 ANOVA 12 t-tests, all of which sum up to total of 21 tests. The probability of at least one type I error is .659. The adjusted significance level is 0.05/21 = 0.0024.
+The maximum heart rate achieved during thalium stress test is different across the levels, more specifically, chest pain type 0 differs from the other three (0 vs 1, 0 vs 2, 0 vs 3). ST depression induced by exercise relative to rest is different (0 vs 1, 0 vs 2, 1 vs 3).
+Random sample assumption is most likely not met since the samples were collected. Samples were independent and large enough (25+). Equal variance.</p>
+<p>#2. Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results. Create a plot visualizing the null distirbution and the test statistic.</p>
+<pre><code class="language-{R}" data-lang="{R}">ggplot(heart,aes(chol,fill=sex))+geom_histogram(bins=6.5)+facet_wrap(~sex,ncol=2)+theme(legend.position=&quot;none&quot;)
+heart%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm1&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol))
+perm1%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm2&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm2%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm3&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm3%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+rand_dist&lt;-vector()
+for(i in 1:5000){
+new&lt;-data.frame(chol=sample(heart$chol),sex=heart$sex)
+rand_dist[i]&lt;-mean(new[new$sex==0,]$chol)-
+ mean(new[new$sex==1,]$chol)}
+{hist(rand_dist,main=&quot;&quot;,ylab=&quot;&quot;); abline(v = -22.01,col=&quot;red&quot;)}
+mean(rand_dist&gt;22.01)*2
+t.test(data=heart,chol~sex)
+obs_F&lt;-22.01
+Fs&lt;-replicate(5000,{
+ new&lt;-heart%&gt;%mutate(chol=sample(chol))
+ SSW&lt;- new%&gt;%group_by(sex)%&gt;%summarize(SSW=sum((chol-mean(chol))^2))%&gt;%
+   summarize(sum(SSW))%&gt;%pull
+ SSB&lt;- new%&gt;%mutate(mean=mean(chol))%&gt;%group_by(sex)%&gt;%
+   mutate(groupmean=mean(chol))%&gt;%
+ summarize(SSB=sum((mean-groupmean)^2))%&gt;%summarize(sum(SSB))%&gt;%pull
+ (SSB/2)/(SSW/57)})
+hist(Fs, prob=T); abline(v = obs_F, col=&quot;red&quot;,add=T)
+</code></pre><p>Null: mean cholesterol level is the same for female vs. male patients. Alternative: mean cholesterol level is different for female vs. male patients. We can reject the null hypothesis as the mean choleterol level is significantly different for female vs. male patients.</p>
+<p>#3.Build a linear regression model prediciting one of your response variables from at least 2 other variables, including their interactions. Mean-center any numeric variables involved in the interaction. Interpret the coefficient estimates (do not discuss significance). Plot the regression using ggplot(). If your interaction is numeric by numeric, refer to code near the end of WS15 to make the plot. If you have 3 or more predictors, just chose two to plot for convenience. Check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test. Regardless, recompute regression results with robust standard errors via coeftest(&hellip;, vcov=vcovHC(&hellip;)). Discuss significance of results, including any changes from before/after robust SEs if applicable. What proportion of the variation in the outcome does your model explain?</p>
+<pre><code class="language-{R}" data-lang="{R}">fit&lt;-lm(chol ~ trestbps + thalach, data=heart)
+summary(fit)
+qplot(x = thalach, y = chol, data = heart) +
+ stat_smooth(method = &quot;lm&quot;, se = FALSE, fullrange = TRUE)
+heart&lt;-heart%&gt;%mutate(thalach_c=thalach-mean(thalach),   trestbps_c=trestbps-mean(trestbps))
+fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+summary(fit1)
+resids&lt;-fit1$residuals
+fitvals&lt;-fit1$fitted.values
+#Linearity and homoskedasticity look normal. 
+ggplot()+geom_point(aes(fitvals,resids))+geom_hline(yintercept=0, col=&quot;red&quot;)
+library(lmtest)
+bptest(fit1)
+#normality looks normal.
+ggplot()+geom_histogram(aes(resids),bins=20)
+ggplot()+geom_qq(aes(sample=resids))+geom_qq_line(aes(sample=resids), color='red')
+#hypothesis test
+ks.test(resids, &quot;pnorm&quot;, mean=0, sd(resids))
+#robust SEs 
+library(sandwich)
+summary(fit1)$coef[,1:2]
+coeftest(fit1, vcov=vcovHC(fit1))[,1:2]
+#Proportion of the variation explained by the model 
+summary(fit1)$r.sq
+</code></pre><p>While controlling for trestbps, thalach does not explain variation.
+While controlling for thalach, trestbps does not explain variation.
+199.8 is the predicted value of cholesterol level when trestbps and thalch are zero. .3634 is the slop for trestbps on chol while holding thalach constant. -.009497 is the slop for thalach on chol while holding trestbps constant.
+After the robust SEs, intercept:2.97,trestbps_c:.157,thalach_c: .115,trestbps_c:thalach_c:.00725.</p>
+<p>#4.Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)</p>
+<pre><code class="language-{R}" data-lang="{R}">fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+samp_distn&lt;-replicate(5000, {
+ boot_dat&lt;-heart[sample(nrow(heart),replace=TRUE),]
+ fit1&lt;-lm(chol~trestbps_c*thalach_c,data=boot_dat)
+ coef(fit1)})
+## Estimated SEs
+samp_distn%&gt;%t%&gt;%as.data.frame%&gt;%summarize_all(sd)
+</code></pre><p>Intercept: -&gt;2.96, trestbps_c: -&gt;.161, thalach_c: -&gt;.115, trestbps_c:thalach_c: -&gt;.00718.</p>
+<p>#5.Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary). Interpret coefficient estimates in context. Report a confusion matrix for your logistic regression. Compute and discuss the Accuracy, Sensitivity (TPR), Specificity (TNR), and Recall (PPV) of your model. Using ggplot, plot density of log-odds (logit) by your binary outcome variable. Generate an ROC curve (plot) and calculate AUC (either manually or with a package); interpret. Perform 10-fold (or repeated random sub-sampling) CV and report average out-of-sample Accuracy, Sensitivity, and Recall</p>
+<pre><code class="language-{R}" data-lang="{R}">class_diag&lt;-function(probs,truth){
+ tab&lt;-table(factor(probs&gt;.5,levels=c(&quot;FALSE&quot;,&quot;TRUE&quot;)),truth)
+ acc=sum(diag(tab))/sum(tab)
+ sens=tab[2,2]/colSums(tab)[2]
+ spec=tab[1,1]/colSums(tab)[1]
+ ppv=tab[2,2]/rowSums(tab)[2]
+ if(is.numeric(truth)==FALSE &amp; is.logical(truth)==FALSE) truth&lt;-as.numeric(truth)-1
+ ord&lt;-order(probs, decreasing=TRUE)
+ probs &lt;- probs[ord]; truth &lt;- truth[ord]
+ TPR=cumsum(truth)/max(1,sum(truth))
+ FPR=cumsum(!truth)/max(1,sum(!truth))
+ dup&lt;-c(probs[-1]&gt;=probs[-length(probs)], FALSE)
+ TPR&lt;-c(0,TPR[!dup],1); FPR&lt;-c(0,FPR[!dup],1)
+ n &lt;- length(TPR)
+ auc&lt;- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+ data.frame(acc,sens,spec,ppv,auc)} 
+#logistic regression
+odds&lt;-function(x)x/(1-x)
+x&lt;-seq(0,1,by=.1)
+cbind(x, odds=odds(x))%&gt;%round(4)
+logit&lt;-function(x)log(odds(x))
+cbind(x, odds=odds(x),logit=logit(x))%&gt;%round(4)
+logfit&lt;-glm(target~sex+cp,data=heart,family=binomial(link=&quot;logit&quot;))
+coeftest(logfit)
+exp(coeftest(logfit))
+#confusion matrix
+prob&lt;-predict(logfit,type=&quot;response&quot;)
+pred&lt;-ifelse(prob&gt;.5,1,0)
+table(prediction=pred,truth=heart$target)%&gt;%addmargins
+#Accuracy
+(90+119)/303 
+#Sensitivity(TPR)
+119/165
+#Specificity(TNR)
+90/138
+#Precision(PPV)
+119/167
+#density plot of log-odds
+heart$logit&lt;-predict(logfit)
+heart$outcome&lt;-factor(heart$target,levels=c(1,0))
+ggplot(heart,aes(logit, fill=outcome))+geom_density(alpha=.3)
+#ROC and AUC
+heart$prob&lt;-predict(logfit,type=&quot;response&quot;)
+sens&lt;-function(p,data=heart, y=target) mean(heart[heart$target==1,]$prob&gt;p)
+spec&lt;-function(p,data=heart, y=target) mean(heart[heart$target==0,]$prob&lt;p)
+sensitivity&lt;-sapply(seq(0,1,.01),sens,heart)
+specificity&lt;-sapply(seq(0,1,.01),spec,heart)
+ROC1&lt;-data.frame(sensitivity,specificity,cutoff=seq(0,1,.01))
+ROC1$TPR&lt;-sensitivity
+ROC1$FPR&lt;-1-specificity
+ROC1%&gt;%ggplot(aes(FPR,TPR))+geom_path(size=1.5)+geom_segment(aes(x=0,y=0,xend=1,yend=1),lty=2)+scale_x_continuous(limits = c(0,1))
+
+ROCplot&lt;-ggplot(heart)+geom_roc(aes(d=target,m=prob), n.cuts=0)+
+ geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) 
+calc_auc(ROCplot)
+#10-fold CV
+set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp,data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))}
+apply(diags,2,mean)
+</code></pre><p>Controlling for cp, sex and target are not significantly different.
+Controlling for sex, cp and target are not significantly different.
+AUC is 0.787 (fair and close to good), which is not good enough to predict whether a paitent has a heart disease only from sex and chest pain type.
+Accuracy and Sensitivity after 10-fold CV are .689 and .721, respectively.</p>
+<p>#6.Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., lambda.1se). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5.</p>
+<pre><code class="language-{R}" data-lang="{R}">y&lt;-as.matrix(heart$target)
+x&lt;-heart%&gt;%dplyr::select(-target,-logit,-outcome,-prob)%&gt;%mutate_all(scale)%&gt;%as.matrix
+cv&lt;-cv.glmnet(x,y)
+lasso&lt;-glmnet(x,y,lambda=cv$lambda.1se)
+coef(lasso)
+
+fit&lt;-lm(target~.,data=heart)
+yhat&lt;-predict(fit)
+mean((heart$target-yhat)^2)
+
+set.seed(1234)
+k=10
+data1&lt;-heart[sample(nrow(heart)),] 
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F)
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data1[folds!=i,]
+ test&lt;-data1[folds==i,]
+ fit&lt;-lm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,data=train)
+ yhat&lt;-predict(fit,newdata=test)
+ diags&lt;-mean((test$target-yhat)^2)} 
+mean(diags)
+
+set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,
+          data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))
+}
+apply(diags,2,mean)
+</code></pre><p>Based on the lasso regression, sex, cp, thalach, exang, oldpeak, slope, ca, and thal are retained. Compared to the log regression model from the previous questions, AUC has become much better (AUC = .912) along with accuracy (ACC = .851). Also the mean squared error has become a lot smaller (MSE = 0.0962), which means it's much better.</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/r">R</a></span><span class="tag"><a href="/tags/datascience">dataScience</a></span><span class="tag"><a href="/tags/modeling">modeling</a></span><span class="tag"><a href="/tags/testing">testing</a></span><span class="tag"><a href="/tags/predicting">predicting</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1331 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-12-04 18:00 -0600</p>
+			</footer>
+		</article>
+		<aside id="toc">
+			<div class="toc-title">Table of Contents</div>
+			<nav id="TableOfContents"></nav>
+		</aside>
+		<div class="post-nav thin">
+			<a class="prev-post" href="/posts/exploratory-data-analysis/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Exploratory Data Analysis</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="/">Min Jo Lee</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="/js/bundle.min.4a9a0ac3d2217822c7865b4161e6c2a71de1d70492264337755427898dd718f6.js" integrity="sha256-SpoKw9IheCLHhltBYebCpx3h1wSSJkM3dVQniY3XGPY=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>

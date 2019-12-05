@@ -6,8 +6,394 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Mon, 24 Dec 2018 12:29:41 +0800</lastBuildDate>
+		<lastBuildDate>Thu, 05 Dec 2019 00:00:00 +0000</lastBuildDate>
 		<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Modeling, Testing, and Predicting</title>
+			<link>/posts/modeling-testing-and-predicting/</link>
+			<pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
+			
+			<guid>/posts/modeling-testing-and-predicting/</guid>
+			<description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
+			<content type="html"><![CDATA[<hr>
+<pre><code class="language-{r" data-lang="{r">library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n &lt;- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) &gt; n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)})
+
+```{R eval=F}
+data(package = .packages(all.available = TRUE))
+</code></pre><p>#0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</p>
+<pre><code class="language-{R}" data-lang="{R}">getwd()
+heart&lt;-read.csv(&quot;heart.csv&quot;,TRUE,&quot;,&quot;)
+head(heart,10)
+</code></pre><p>I used the heart disease data set that dates from 1988 in Cleveland. Age is age in years. Sex is divided into female (0) and male (1). cp is chest pain type (typical angina, atypical angina, non-angina, or asymptomatic angina); but I don't know which one is which. trestbps is resting blood pressure (mm Hg). chol is serum cholesterol (mg/dl). thalach is maximum heart rate achieved during thalium stress test. exang is whether angina is exercied induced or not. oldpeak is ST depression induced by exercise relative to rest. slope is slope of peak exercise ST segment. ca is the number of major vessels colored by fluroscopy. thal is the thalium stress test result (normal, fixed defect, or reversible defect). target is whether a patient has a heart disease (y=0: heart disease;y=1: no).
+#1. (15 pts) Perform a MANOVA testing whether any of your numeric variables(or a subset of them, if including them all doesn't make sense) show a mean difference across levels of one of your categorical variables (3). If they do, perform univariate ANOVAs to find responses(s) showing a mean difference across groups (3), and perform post-hoc t tests to find which group differ (3). Discuss the number of tests you have performed, calculate the probability of at least one type I error (if unadjusted), ad adjust the significance level accordingly (bonferroni correction) before discussing significant differences (3). Briefly discuss assumptions and whether or not they are likely to have been met (2).</p>
+<pre><code class="language-{R}" data-lang="{R}">#MANOVA
+man1&lt;-manova(cbind(trestbps,chol,thalach,oldpeak)~cp,data=heart)
+summary(man1)
+#univariate ANOVA
+summary.aov(man1)
+heart%&gt;%group_by(cp)%&gt;%
+  summarize(mean(trestbps),mean(chol), mean(thalach),mean(oldpeak))
+#t tests
+pairwise.t.test(heart$trestbps,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$chol,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$thalach,heart$cp,p.adj=&quot;none&quot;)
+pairwise.t.test(heart$oldpeak,heart$cp,p.adj=&quot;none&quot;)
+1-.95^(21)
+</code></pre><p>1 MANOVA, 4 ANOVA 12 t-tests, all of which sum up to total of 21 tests. The probability of at least one type I error is .659. The adjusted significance level is 0.05/21 = 0.0024.
+The maximum heart rate achieved during thalium stress test is different across the levels, more specifically, chest pain type 0 differs from the other three (0 vs 1, 0 vs 2, 0 vs 3). ST depression induced by exercise relative to rest is different (0 vs 1, 0 vs 2, 1 vs 3).
+Random sample assumption is most likely not met since the samples were collected. Samples were independent and large enough (25+). Equal variance.</p>
+<p>#2. Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results. Create a plot visualizing the null distirbution and the test statistic.</p>
+<pre><code class="language-{R}" data-lang="{R}">ggplot(heart,aes(chol,fill=sex))+geom_histogram(bins=6.5)+facet_wrap(~sex,ncol=2)+theme(legend.position=&quot;none&quot;)
+heart%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm1&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol))
+perm1%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm2&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm2%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+perm3&lt;-data.frame(sex=heart$sex,chol=sample(heart$chol)) 
+perm3%&gt;%group_by(sex)%&gt;%
+  summarize(means=mean(chol))%&gt;%summarize(`mean_diff:`=diff(means))
+rand_dist&lt;-vector()
+for(i in 1:5000){
+new&lt;-data.frame(chol=sample(heart$chol),sex=heart$sex)
+rand_dist[i]&lt;-mean(new[new$sex==0,]$chol)-
+ mean(new[new$sex==1,]$chol)}
+{hist(rand_dist,main=&quot;&quot;,ylab=&quot;&quot;); abline(v = -22.01,col=&quot;red&quot;)}
+mean(rand_dist&gt;22.01)*2
+t.test(data=heart,chol~sex)
+obs_F&lt;-22.01
+Fs&lt;-replicate(5000,{
+ new&lt;-heart%&gt;%mutate(chol=sample(chol))
+ SSW&lt;- new%&gt;%group_by(sex)%&gt;%summarize(SSW=sum((chol-mean(chol))^2))%&gt;%
+   summarize(sum(SSW))%&gt;%pull
+ SSB&lt;- new%&gt;%mutate(mean=mean(chol))%&gt;%group_by(sex)%&gt;%
+   mutate(groupmean=mean(chol))%&gt;%
+ summarize(SSB=sum((mean-groupmean)^2))%&gt;%summarize(sum(SSB))%&gt;%pull
+ (SSB/2)/(SSW/57)})
+hist(Fs, prob=T); abline(v = obs_F, col=&quot;red&quot;,add=T)
+</code></pre><p>Null: mean cholesterol level is the same for female vs. male patients. Alternative: mean cholesterol level is different for female vs. male patients. We can reject the null hypothesis as the mean choleterol level is significantly different for female vs. male patients.</p>
+<p>#3.Build a linear regression model prediciting one of your response variables from at least 2 other variables, including their interactions. Mean-center any numeric variables involved in the interaction. Interpret the coefficient estimates (do not discuss significance). Plot the regression using ggplot(). If your interaction is numeric by numeric, refer to code near the end of WS15 to make the plot. If you have 3 or more predictors, just chose two to plot for convenience. Check assumptions of linearity, normality, and homoskedasticity either graphically or using a hypothesis test. Regardless, recompute regression results with robust standard errors via coeftest(&hellip;, vcov=vcovHC(&hellip;)). Discuss significance of results, including any changes from before/after robust SEs if applicable. What proportion of the variation in the outcome does your model explain?</p>
+<pre><code class="language-{R}" data-lang="{R}">fit&lt;-lm(chol ~ trestbps + thalach, data=heart)
+summary(fit)
+qplot(x = thalach, y = chol, data = heart) +
+ stat_smooth(method = &quot;lm&quot;, se = FALSE, fullrange = TRUE)
+heart&lt;-heart%&gt;%mutate(thalach_c=thalach-mean(thalach),   trestbps_c=trestbps-mean(trestbps))
+fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+summary(fit1)
+resids&lt;-fit1$residuals
+fitvals&lt;-fit1$fitted.values
+#Linearity and homoskedasticity look normal. 
+ggplot()+geom_point(aes(fitvals,resids))+geom_hline(yintercept=0, col=&quot;red&quot;)
+library(lmtest)
+bptest(fit1)
+#normality looks normal.
+ggplot()+geom_histogram(aes(resids),bins=20)
+ggplot()+geom_qq(aes(sample=resids))+geom_qq_line(aes(sample=resids), color='red')
+#hypothesis test
+ks.test(resids, &quot;pnorm&quot;, mean=0, sd(resids))
+#robust SEs 
+library(sandwich)
+summary(fit1)$coef[,1:2]
+coeftest(fit1, vcov=vcovHC(fit1))[,1:2]
+#Proportion of the variation explained by the model 
+summary(fit1)$r.sq
+</code></pre><p>While controlling for trestbps, thalach does not explain variation.
+While controlling for thalach, trestbps does not explain variation.
+199.8 is the predicted value of cholesterol level when trestbps and thalch are zero. .3634 is the slop for trestbps on chol while holding thalach constant. -.009497 is the slop for thalach on chol while holding trestbps constant.
+After the robust SEs, intercept:2.97,trestbps_c:.157,thalach_c: .115,trestbps_c:thalach_c:.00725.</p>
+<p>#4.Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)</p>
+<pre><code class="language-{R}" data-lang="{R}">fit1&lt;-lm(chol~trestbps_c*thalach_c,data=heart)
+samp_distn&lt;-replicate(5000, {
+ boot_dat&lt;-heart[sample(nrow(heart),replace=TRUE),]
+ fit1&lt;-lm(chol~trestbps_c*thalach_c,data=boot_dat)
+ coef(fit1)})
+## Estimated SEs
+samp_distn%&gt;%t%&gt;%as.data.frame%&gt;%summarize_all(sd)
+</code></pre><p>Intercept: -&gt;2.96, trestbps_c: -&gt;.161, thalach_c: -&gt;.115, trestbps_c:thalach_c: -&gt;.00718.</p>
+<p>#5.Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary). Interpret coefficient estimates in context. Report a confusion matrix for your logistic regression. Compute and discuss the Accuracy, Sensitivity (TPR), Specificity (TNR), and Recall (PPV) of your model. Using ggplot, plot density of log-odds (logit) by your binary outcome variable. Generate an ROC curve (plot) and calculate AUC (either manually or with a package); interpret. Perform 10-fold (or repeated random sub-sampling) CV and report average out-of-sample Accuracy, Sensitivity, and Recall</p>
+<pre><code class="language-{R}" data-lang="{R}">class_diag&lt;-function(probs,truth){
+ tab&lt;-table(factor(probs&gt;.5,levels=c(&quot;FALSE&quot;,&quot;TRUE&quot;)),truth)
+ acc=sum(diag(tab))/sum(tab)
+ sens=tab[2,2]/colSums(tab)[2]
+ spec=tab[1,1]/colSums(tab)[1]
+ ppv=tab[2,2]/rowSums(tab)[2]
+ if(is.numeric(truth)==FALSE &amp; is.logical(truth)==FALSE) truth&lt;-as.numeric(truth)-1
+ ord&lt;-order(probs, decreasing=TRUE)
+ probs &lt;- probs[ord]; truth &lt;- truth[ord]
+ TPR=cumsum(truth)/max(1,sum(truth))
+ FPR=cumsum(!truth)/max(1,sum(!truth))
+ dup&lt;-c(probs[-1]&gt;=probs[-length(probs)], FALSE)
+ TPR&lt;-c(0,TPR[!dup],1); FPR&lt;-c(0,FPR[!dup],1)
+ n &lt;- length(TPR)
+ auc&lt;- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n]) )
+ data.frame(acc,sens,spec,ppv,auc)} 
+#logistic regression
+odds&lt;-function(x)x/(1-x)
+x&lt;-seq(0,1,by=.1)
+cbind(x, odds=odds(x))%&gt;%round(4)
+logit&lt;-function(x)log(odds(x))
+cbind(x, odds=odds(x),logit=logit(x))%&gt;%round(4)
+logfit&lt;-glm(target~sex+cp,data=heart,family=binomial(link=&quot;logit&quot;))
+coeftest(logfit)
+exp(coeftest(logfit))
+#confusion matrix
+prob&lt;-predict(logfit,type=&quot;response&quot;)
+pred&lt;-ifelse(prob&gt;.5,1,0)
+table(prediction=pred,truth=heart$target)%&gt;%addmargins
+#Accuracy
+(90+119)/303 
+#Sensitivity(TPR)
+119/165
+#Specificity(TNR)
+90/138
+#Precision(PPV)
+119/167
+#density plot of log-odds
+heart$logit&lt;-predict(logfit)
+heart$outcome&lt;-factor(heart$target,levels=c(1,0))
+ggplot(heart,aes(logit, fill=outcome))+geom_density(alpha=.3)
+#ROC and AUC
+heart$prob&lt;-predict(logfit,type=&quot;response&quot;)
+sens&lt;-function(p,data=heart, y=target) mean(heart[heart$target==1,]$prob&gt;p)
+spec&lt;-function(p,data=heart, y=target) mean(heart[heart$target==0,]$prob&lt;p)
+sensitivity&lt;-sapply(seq(0,1,.01),sens,heart)
+specificity&lt;-sapply(seq(0,1,.01),spec,heart)
+ROC1&lt;-data.frame(sensitivity,specificity,cutoff=seq(0,1,.01))
+ROC1$TPR&lt;-sensitivity
+ROC1$FPR&lt;-1-specificity
+ROC1%&gt;%ggplot(aes(FPR,TPR))+geom_path(size=1.5)+geom_segment(aes(x=0,y=0,xend=1,yend=1),lty=2)+scale_x_continuous(limits = c(0,1))
+
+ROCplot&lt;-ggplot(heart)+geom_roc(aes(d=target,m=prob), n.cuts=0)+
+ geom_segment(aes(x=0,xend=1,y=0,yend=1),lty=2) 
+calc_auc(ROCplot)
+#10-fold CV
+set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp,data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))}
+apply(diags,2,mean)
+</code></pre><p>Controlling for cp, sex and target are not significantly different.
+Controlling for sex, cp and target are not significantly different.
+AUC is 0.787 (fair and close to good), which is not good enough to predict whether a paitent has a heart disease only from sex and chest pain type.
+Accuracy and Sensitivity after 10-fold CV are .689 and .721, respectively.</p>
+<p>#6.Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., lambda.1se). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5.</p>
+<pre><code class="language-{R}" data-lang="{R}">y&lt;-as.matrix(heart$target)
+x&lt;-heart%&gt;%dplyr::select(-target,-logit,-outcome,-prob)%&gt;%mutate_all(scale)%&gt;%as.matrix
+cv&lt;-cv.glmnet(x,y)
+lasso&lt;-glmnet(x,y,lambda=cv$lambda.1se)
+coef(lasso)
+
+fit&lt;-lm(target~.,data=heart)
+yhat&lt;-predict(fit)
+mean((heart$target-yhat)^2)
+
+set.seed(1234)
+k=10
+data1&lt;-heart[sample(nrow(heart)),] 
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F)
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data1[folds!=i,]
+ test&lt;-data1[folds==i,]
+ fit&lt;-lm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,data=train)
+ yhat&lt;-predict(fit,newdata=test)
+ diags&lt;-mean((test$target-yhat)^2)} 
+mean(diags)
+
+set.seed(1234)
+k=10
+data&lt;-heart[sample(nrow(heart)),]
+folds&lt;-cut(seq(1:nrow(heart)),breaks=k,labels=F) 
+diags&lt;-NULL
+for(i in 1:k){
+ train&lt;-data[folds!=i,]
+ test&lt;-data[folds==i,]
+ truth&lt;-test$target
+ fit&lt;-glm(target~sex+cp+thalach+exang+oldpeak+slope+ca+thal,
+          data=heart,family=&quot;binomial&quot;)
+ probs&lt;-predict(fit,newdata = test,type=&quot;response&quot;)
+ diags&lt;-rbind(diags,class_diag(probs,truth))
+}
+apply(diags,2,mean)
+</code></pre><p>Based on the lasso regression, sex, cp, thalach, exang, oldpeak, slope, ca, and thal are retained. Compared to the log regression model from the previous questions, AUC has become much better (AUC = .912) along with accuracy (ACC = .851). Also the mean squared error has become a lot smaller (MSE = 0.0962), which means it's much better.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Exploratory Data Analysis</title>
+			<link>/posts/exploratory-data-analysis/</link>
+			<pubDate>Wed, 04 Dec 2019 11:36:33 +0800</pubDate>
+			
+			<guid>/posts/exploratory-data-analysis/</guid>
+			<description>knitr::opts_chunk$set(echo = TRUE) library(knitr) opts_chunk$set(fig.align=&amp;quot;center&amp;quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE) Data Wrangling and Data Exploration Andrew Lee ml45932
+##0 Introduction getwd() performance&amp;lt;-read.csv(&amp;quot;exam.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) medicalcost&amp;lt;-read.csv(&amp;quot;insurance.csv&amp;quot;,TRUE,&amp;quot;,&amp;quot;) The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual&#39;s medical cost charged by healthcare insurance companies. As I&#39;m interested in healthcare and medicine, I&#39;d like to know if there is any interesting relationship between student&#39;s performance and the cost of insurance with consideration of factors like economic, personal, and social.</description>
+			<content type="html"><![CDATA[<pre><code class="language-{r" data-lang="{r">knitr::opts_chunk$set(echo = TRUE)
+
+</code></pre><pre><code class="language-{r" data-lang="{r">library(knitr)
+opts_chunk$set(fig.align=&quot;center&quot;, fig.height=5, message=FALSE, warning=FALSE, fig.width=8, tidy=TRUE)
+</code></pre><h2 id="data-wrangling-and-data-exploration">Data Wrangling and Data Exploration</h2>
+<p>Andrew Lee ml45932</p>
+<pre><code class="language-{R}" data-lang="{R}">##0 Introduction
+getwd()
+performance&lt;-read.csv(&quot;exam.csv&quot;,TRUE,&quot;,&quot;)
+medicalcost&lt;-read.csv(&quot;insurance.csv&quot;,TRUE,&quot;,&quot;)
+</code></pre><p>The first dataset is about student performance in three different(subjects) exams along with parental education level and completion of test preparation. The second dataset is about individual's medical cost charged by healthcare insurance companies. As I'm interested in healthcare and medicine, I'd like to know if there is any interesting relationship between student's performance and the cost of insurance with consideration of factors like economic, personal, and social.
+One of my assumptions is that since people with free/lunch plan, low parental education, race, and no exam preparation course might indicate their socioeconomic status, they might not be able to maintain health lifestyle, thereby resulting in higher medical cost charged by insurance companies.</p>
+<pre><code class="language-{R}" data-lang="{R}">##1 Tidying: Rearranging Wide/Long
+library(tidyverse)
+performance &lt;- performance%&gt;%na.omit()
+medicalcost &lt;- medicalcost%&gt;%na.omit() 
+
+
+performance1 &lt;- performance%&gt;%pivot_longer(c(6:8))
+performance2 &lt;- performance1%&gt;%pivot_wider(names_from = &quot;name&quot;,values_from = &quot;value&quot;)
+
+
+medicalcost1&lt;-medicalcost%&gt;%select(sex,age,bmi,children,smoker,region,charges)
+medicalcost2&lt;-medicalcost1%&gt;%pivot_longer(c(2:4))  
+medicalcost3 &lt;- medicalcost2%&gt;%
+  pivot_wider(names_from=&quot;name&quot;,values_from=&quot;value&quot;)
+
+
+</code></pre><p>Since the data were already tidy, they were untidied and retidied by using pivot_longer and pivot_wider functions.</p>
+<pre><code class="language-{R}" data-lang="{R}">##2 Joining/Merging
+fulldata &lt;- full_join(performance,medicalcost,by=c(&quot;gender&quot;=&quot;sex&quot;))
+
+</code></pre><p>I used a full_join function as I did not want to drop any factors that may influence student performance as well as medical cost charged.</p>
+<pre><code class="language-{R}" data-lang="{R}">##3 Wrangling
+fulldata1 &lt;- fulldata%&gt;%select(-region,) %&gt;% mutate(race=race.ethnicity) %&gt;%
+  select(-race.ethnicity,) %&gt;% arrange(desc(age))
+#I took out region column as it contains only four across the U.S and becomes unnecessary facotr of my interest
+
+fulldata1%&gt;%group_by(gender) %&gt;% summarize(mean_charges=mean(charges),mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores and medical charges between two genders (1)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(age&gt;mean(age,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(age&lt;mean(age,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+#Age could be a good indictor that might affect medical charges (2)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(smoker==&quot;yes&quot;)%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(smoker==&quot;no&quot;)%&gt;%
+  summarize(mean_charges=mean(charges))
+#Smoking status could also be a good indicator that might affect medical charges (3)
+
+fulldata1%&gt;%group_by(gender)%&gt;%filter(bmi&gt;mean(bmi,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+fulldata1%&gt;%group_by(gender)%&gt;%filter(bmi&lt;mean(bmi,na.rm=TRUE))%&gt;%
+  summarize(mean_charges=mean(charges))
+#BMI could be a good indicator that might affect medical charges (4)
+
+fulldata1%&gt;%group_by(test.preparation.course,lunch)%&gt;%
+  filter(math.score&gt;mean(math.score),reading.score&gt;mean(reading.score),
+         writing.score&gt;mean(writing.score))%&gt;% 
+  summarize(mean_charges=mean(charges))
+#economic status could affect medical charges (5)
+
+fulldata1%&gt;%group_by(parental.level.of.education)%&gt;%
+    summarize(mean_charges=mean(charges))%&gt;% arrange(desc(mean_charges))
+#parental level of education might affect medical charges (6)
+
+fulldata1%&gt;%group_by(children)%&gt;%summarize(mean_charges=mean(charges))
+#number of children might affect medical charges (7)
+
+fulldata1%&gt;%group_by(race) %&gt;% summarize(mean_charges=mean(charges),mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores and medical charges among five races (8)
+
+fulldata1%&gt;%group_by(race)%&gt;%summarize(mean_bmi=mean(bmi))
+#Difference in bmi among five races (9)   
+
+fulldata1%&gt;%group_by(smoker)%&gt;%summarize(mean_math=mean(math.score), mean_read=mean(reading.score), mean_write=mean(writing.score))
+#Difference in exam scores between smoker and non-smoker (10)
+
+fulldata_nums &lt;- fulldata1%&gt;%select_if(is.numeric)%&gt;%scale
+data_pca &lt;- prcomp(fulldata_nums)
+names(data_pca)
+summary(data_pca)
+data_pca$sdev
+eigen(cor(fulldata_nums))
+#corrleation matrix of the numeric variables
+
+
+</code></pre><p>Female group had higher reading and writing score but male group had higher medical cost and math score.For both of those who are older and yonger than the mean age, the male group had higher medical cost than the female group. For those who smoke, the male group also had higher medical cost but for non-smokers, the female group had higher medical cost. For both of those who have higher and lower BMI than the mean, the male group had higher medical cost. Medical cost was higher for the group with free/reduced lunch plan and no test preparation course but lower for the group with free/reduced plan completion of test preparation course. The higher the parental level of education is, the lower the medical cost is charged. The group with three children had the highest medical cost and the group with five kids had the lowest. All five race groups had similar BMI, though group A was the highest. Non-smoker group had higher reading and writing score than the smoker group.</p>
+<pre><code class="language-{R}" data-lang="{R}">##4 Visualizing
+library(ggplot2)
+
+fulldata2 &lt;- fulldata1%&gt;%distinct()
+
+fulldata2 %&gt;% group_by(race,gender) %&gt;% summarize(mean_char=mean(charges, na.rm=T),sd_char=sd(charges, na.rm=T),n=n(),se_char=sd_char/sqrt(n))%&gt;%
+ggplot(aes(gender,mean_char))+geom_bar(stat=&quot;identity&quot;)+
+geom_errorbar(aes(y=mean_char, ymin = mean_char-se_char, 
+                   ymax = mean_char+se_char))+ facet_wrap(~race)
+
+fulldata2 %&gt;% group_by(race,smoker) %&gt;% summarize(mean_char=mean(charges, na.rm=T),sd_char=sd(charges, na.rm=T),n=n(),se_char=sd_char/sqrt(n))%&gt;%
+ggplot(aes(smoker,mean_char))+geom_bar(stat=&quot;identity&quot;)+
+geom_errorbar(aes(y=mean_char, ymin = mean_char-se_char, 
+                   ymax = mean_char+se_char))+ facet_wrap(~race)
+</code></pre><p>Across all five races, every male group had a higher medical cost charged than the female group and smoker group had a higher medical cost charged than the non-smoker group.</p>
+<pre><code class="language-{R}" data-lang="{R}">
+ggplot(head(fulldata2,500), aes(math.score,charges))+
+geom_point(aes(color=smoker, size=bmi))+
+  scale_x_continuous(name=&quot;math exam score&quot;,breaks=c(20,40,60,80,100))+
+  scale_y_continuous(name=&quot;medicalcost&quot;)
+
+
+</code></pre><p>It is apparent that smoking status affects the medical costas well as BMI but there is no obvious relationship between excam score and medical cost.</p>
+<pre><code class="language-{R}" data-lang="{R}">##5 Dimensionality Reduction
+
+fulldata_nums &lt;- fulldata1%&gt;%select_if(is.numeric)%&gt;%scale
+data_pca1 &lt;- princomp(fulldata_nums)
+summary(data_pca1,loadings=T)
+
+eigval &lt;- data_pca1$sdev^2
+varprop=round(eigval/sum(eigval),2)
+
+ggplot()+geom_bar(aes(y=varprop,x=1:7),stat=&quot;identity&quot;)+xlab(&quot;&quot;)+geom_path(aes(y=varprop,x=1:7))+
+ geom_text(aes(x=1:7,y=varprop,label=round(varprop,2)),vjust=1,col=&quot;white&quot;,size=5)+
+ scale_y_continuous(breaks=seq(0,.6,.2),labels = scales::percent)+
+ scale_x_continuous(breaks=1:10)
+
+
+round(cumsum(eigval)/sum(eigval),2)
+eigval[1:7]
+
+datadf&lt;-data.frame(PC1=data_pca1$scores[,1],PC2=data_pca1$scores[,2])
+ggplot(datadf,aes(PC1,PC2))+geom_point()
+
+
+data_pca1$loadings[1:7,1:2]%&gt;%as.data.frame%&gt;%rownames_to_column%&gt;%
+ggplot()+geom_hline(aes(yintercept=0),lty=2)+
+ geom_vline(aes(xintercept=0),lty=2)+ylab(&quot;PC2&quot;)+xlab(&quot;PC1&quot;)+
+ geom_segment(aes(x=0,y=0,xend=Comp.1,yend=Comp.2),arrow=arrow(),col=&quot;red&quot;)+
+ geom_label(aes(x=Comp.1*1.1,y=Comp.2*1.1,label=rowname))
+</code></pre><p>PC1 and PC2 together can summarize 59% of the total variability.
+Only 2 PCs have eigenvalues greater than 1 but PC3 and PC4 are close.
+There seems to be a strong association of age, bmi, and the number of children with medical charges but not with exam scores.</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>The &#34;figure&#34; Shortcode</title>
@@ -81,93 +467,6 @@ For example:
 </span><span class="w">  </span>-<span class="w"> </span>https<span class="p">:</span>//picsum.photos/<span class="m">1024</span>/<span class="m">768</span>/<span class="p">?</span>random<span class="w">
 </span><span class="w"></span>---<span class="w">
 </span></code></pre></div><p>This is an array, you can set multiple urls, only the first url will be used. These images is also used in <a href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started.html">Twitter Cards</a> and the <a href="http://ogp.me/">Open Graph</a> metadata.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Typography</title>
-			<link>/posts/typography/</link>
-			<pubDate>Sat, 29 Sep 2018 11:36:33 +0800</pubDate>
-			
-			<guid>/posts/typography/</guid>
-			<description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- An apple is a sweet, edible fruit produced by an apple tree (Malus pumila).</description>
-			<content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<blockquote>
-<p>An apple is a sweet, edible fruit produced by an apple tree (Malus pumila). Apple trees are cultivated worldwide, and are the most widely grown species in the genus Malus. The tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today. Apples have been grown for thousands of years in Asia and Europe, and were brought to North America by European colonists. Apples have religious and mythological significance in many cultures, including Norse, Greek and European Christian traditions.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-</blockquote>
-<hr>
-<p>Inline styles：</p>
-<p><strong>strong</strong>, <em>emphasis</em>, <em><strong>strong and emphasis</strong></em>,<code>code</code>, <!-- raw HTML omitted -->underline<!-- raw HTML omitted -->, <del>strikethrough</del>, 😂🤣, $\LaTeX$, X^2^, H~2~O, ==highlight==, <a href="https://example.com">Link</a>, and image:</p>
-<p><img src="https://picsum.photos/600/400/?random" alt="img"></p>
-<hr>
-<p>Headings:</p>
-<h1 id="heading-1">Heading 1</h1>
-<h2 id="heading-2">Heading 2</h2>
-<h3 id="heading-3">Heading 3</h3>
-<h4 id="heading-4">Heading 4</h4>
-<h5 id="heading-5">Heading 5</h5>
-<h6 id="heading-6">Heading 6</h6>
-<p>Table:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Left-Aligned</th>
-<th align="center">Center Aligned</th>
-<th align="right">Right Aligned</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">col 3 is</td>
-<td align="center">some wordy text</td>
-<td align="right">$1600</td>
-</tr>
-<tr>
-<td align="left">col 2 is</td>
-<td align="center">centered</td>
-<td align="right">$12</td>
-</tr>
-<tr>
-<td align="left">zebra stripes</td>
-<td align="center">are neat</td>
-<td align="right">$1</td>
-</tr>
-</tbody>
-</table>
-<p>Lists:</p>
-<ul>
-<li>Unordered list item 1.</li>
-<li>Unordered list item 2.</li>
-</ul>
-<ol>
-<li>ordered list item 1.</li>
-<li>ordered list item 2.
-<ul>
-<li>sub-unordered list item 1.</li>
-<li>sub-unordered list item 2.
-<ul>
-<li><input checked="" disabled="" type="checkbox">something is DONE.</li>
-<li><input disabled="" type="checkbox">something is NOT DONE.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>Syntax Highlighting:</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">,</span> <span class="nx">sum</span>
-<span class="nx">num1</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">&#34;Enter first number&#34;</span><span class="p">)</span>
-<span class="nx">num2</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">&#34;Enter second number&#34;</span><span class="p">)</span>
-<span class="nx">sum</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">num1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">num2</span><span class="p">)</span> <span class="c1">// &#34;+&#34; means &#34;add&#34;
-</span><span class="c1"></span><span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;Sum = &#34;</span> <span class="o">+</span> <span class="nx">sum</span><span class="p">)</span>  <span class="c1">// &#34;+&#34; means combine into a string
-</span></code></pre></div><section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>From <a href="https://en.wikipedia.org/wiki/Apple">https://en.wikipedia.org/wiki/Apple</a><a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#8617;</a></p>
-</li>
-</ol>
-</section>
 ]]></content>
 		</item>
 		
@@ -986,250 +1285,6 @@ $ vi themes/zafta/layouts/_default/single.html
 <h3 id="dont-repeat-yourself">Don't Repeat Yourself</h3>
 <p>DRY is a good design goal and Hugo does a great job supporting it. Part of the art of a good template is knowing when to add a new template and when to update an existing one. While you're figuring that out, accept that you'll be doing some refactoring. Hugo makes that easy and fast, so it's okay to delay splitting up a template.</p>
 ]]></content>
-		</item>
-		
-		<item>
-			<title>(Hu)go Template Primer</title>
-			<link>/posts/goisforlovers/</link>
-			<pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-			
-			<guid>/posts/goisforlovers/</guid>
-			<description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.
-This document is a brief primer on using Go templates.</description>
-			<content type="html"><![CDATA[<p>Hugo uses the excellent <a href="https://golang.org/">Go</a> <a href="https://golang.org/pkg/html/template/">html/template</a> library for
-its template engine. It is an extremely lightweight engine that provides a very
-small amount of logic. In our experience that it is just the right amount of
-logic to be able to create a good static website. If you have used other
-template systems from different languages or frameworks you will find a lot of
-similarities in Go templates.</p>
-<p>This document is a brief primer on using Go templates. The <a href="https://golang.org/pkg/html/template/">Go docs</a>
-provide more details.</p>
-<h2 id="introduction-to-go-templates">Introduction to Go Templates</h2>
-<p>Go templates provide an extremely simple template language. It adheres to the
-belief that only the most basic of logic belongs in the template or view layer.
-One consequence of this simplicity is that Go templates parse very quickly.</p>
-<p>A unique characteristic of Go templates is they are content aware. Variables and
-content will be sanitized depending on the context of where they are used. More
-details can be found in the <a href="https://golang.org/pkg/html/template/">Go docs</a>.</p>
-<h2 id="basic-syntax">Basic Syntax</h2>
-<p>Golang templates are HTML files with the addition of variables and
-functions.</p>
-<p><strong>Go variables and functions are accessible within {{ }}</strong></p>
-<p>Accessing a predefined variable &ldquo;foo&rdquo;:</p>
-<pre><code>{{ foo }}
-</code></pre>
-<p><strong>Parameters are separated using spaces</strong></p>
-<p>Calling the add function with input of 1, 2:</p>
-<pre><code>{{ add 1 2 }}
-</code></pre>
-<p><strong>Methods and fields are accessed via dot notation</strong></p>
-<p>Accessing the Page Parameter &ldquo;bar&rdquo;</p>
-<pre><code>{{ .Params.bar }}
-</code></pre>
-<p><strong>Parentheses can be used to group items together</strong></p>
-<pre><code>{{ if or (isset .Params &quot;alt&quot;) (isset .Params &quot;caption&quot;) }} Caption {{ end }}
-</code></pre>
-<h2 id="variables">Variables</h2>
-<p>Each Go template has a struct (object) made available to it. In hugo each
-template is passed either a page or a node struct depending on which type of
-page you are rendering. More details are available on the
-<a href="/layout/variables">variables</a> page.</p>
-<p>A variable is accessed by referencing the variable name.</p>
-<pre><code>&lt;title&gt;{{ .Title }}&lt;/title&gt;
-</code></pre>
-<p>Variables can also be defined and referenced.</p>
-<pre><code>{{ $address := &quot;123 Main St.&quot;}}
-{{ $address }}
-</code></pre>
-<h2 id="functions">Functions</h2>
-<p>Go template ship with a few functions which provide basic functionality. The Go
-template system also provides a mechanism for applications to extend the
-available functions with their own. <a href="/layout/functions">Hugo template
-functions</a> provide some additional functionality we believe
-are useful for building websites. Functions are called by using their name
-followed by the required parameters separated by spaces. Template
-functions cannot be added without recompiling hugo.</p>
-<p><strong>Example:</strong></p>
-<pre><code>{{ add 1 2 }}
-</code></pre>
-<h2 id="includes">Includes</h2>
-<p>When including another template you will pass to it the data it will be
-able to access. To pass along the current context please remember to
-include a trailing dot. The templates location will always be starting at
-the /layout/ directory within Hugo.</p>
-<p><strong>Example:</strong></p>
-<pre><code>{{ template &quot;chrome/header.html&quot; . }}
-</code></pre>
-<h2 id="logic">Logic</h2>
-<p>Go templates provide the most basic iteration and conditional logic.</p>
-<h3 id="iteration">Iteration</h3>
-<p>Just like in Go, the Go templates make heavy use of range to iterate over
-a map, array or slice. The following are different examples of how to use
-range.</p>
-<p><strong>Example 1: Using Context</strong></p>
-<pre><code>{{ range array }}
-    {{ . }}
-{{ end }}
-</code></pre>
-<p><strong>Example 2: Declaring value variable name</strong></p>
-<pre><code>{{range $element := array}}
-    {{ $element }}
-{{ end }}
-</code></pre>
-<p><strong>Example 2: Declaring key and value variable name</strong></p>
-<pre><code>{{range $index, $element := array}}
-    {{ $index }}
-    {{ $element }}
-{{ end }}
-</code></pre>
-<h3 id="conditionals">Conditionals</h3>
-<p>If, else, with, or, &amp; and provide the framework for handling conditional
-logic in Go Templates. Like range, each statement is closed with <code>end</code>.</p>
-<p>Go Templates treat the following values as false:</p>
-<ul>
-<li>false</li>
-<li>0</li>
-<li>any array, slice, map, or string of length zero</li>
-</ul>
-<p><strong>Example 1: If</strong></p>
-<pre><code>{{ if isset .Params &quot;title&quot; }}&lt;h4&gt;{{ index .Params &quot;title&quot; }}&lt;/h4&gt;{{ end }}
-</code></pre>
-<p><strong>Example 2: If -&gt; Else</strong></p>
-<pre><code>{{ if isset .Params &quot;alt&quot; }}
-    {{ index .Params &quot;alt&quot; }}
-{{else}}
-    {{ index .Params &quot;caption&quot; }}
-{{ end }}
-</code></pre>
-<p><strong>Example 3: And &amp; Or</strong></p>
-<pre><code>{{ if and (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
-</code></pre>
-<p><strong>Example 4: With</strong></p>
-<p>An alternative way of writing &ldquo;if&rdquo; and then referencing the same value
-is to use &ldquo;with&rdquo; instead. With rebinds the context <code>.</code> within its scope,
-and skips the block if the variable is absent.</p>
-<p>The first example above could be simplified as:</p>
-<pre><code>{{ with .Params.title }}&lt;h4&gt;{{ . }}&lt;/h4&gt;{{ end }}
-</code></pre>
-<p><strong>Example 5: If -&gt; Else If</strong></p>
-<pre><code>{{ if isset .Params &quot;alt&quot; }}
-    {{ index .Params &quot;alt&quot; }}
-{{ else if isset .Params &quot;caption&quot; }}
-    {{ index .Params &quot;caption&quot; }}
-{{ end }}
-</code></pre>
-<h2 id="pipes">Pipes</h2>
-<p>One of the most powerful components of Go templates is the ability to
-stack actions one after another. This is done by using pipes. Borrowed
-from unix pipes, the concept is simple, each pipeline's output becomes the
-input of the following pipe.</p>
-<p>Because of the very simple syntax of Go templates, the pipe is essential
-to being able to chain together function calls. One limitation of the
-pipes is that they only can work with a single value and that value
-becomes the last parameter of the next pipeline.</p>
-<p>A few simple examples should help convey how to use the pipe.</p>
-<p><strong>Example 1 :</strong></p>
-<pre><code>{{ if eq 1 1 }} Same {{ end }}
-</code></pre>
-<p>is the same as</p>
-<pre><code>{{ eq 1 1 | if }} Same {{ end }}
-</code></pre>
-<p>It does look odd to place the if at the end, but it does provide a good
-illustration of how to use the pipes.</p>
-<p><strong>Example 2 :</strong></p>
-<pre><code>{{ index .Params &quot;disqus_url&quot; | html }}
-</code></pre>
-<p>Access the page parameter called &ldquo;disqus_url&rdquo; and escape the HTML.</p>
-<p><strong>Example 3 :</strong></p>
-<pre><code>{{ if or (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
-Stuff Here
-{{ end }}
-</code></pre>
-<p>Could be rewritten as</p>
-<pre><code>{{  isset .Params &quot;caption&quot; | or isset .Params &quot;title&quot; | or isset .Params &quot;attr&quot; | if }}
-Stuff Here
-{{ end }}
-</code></pre>
-<h2 id="context-aka-the-dot">Context (aka. the dot)</h2>
-<p>The most easily overlooked concept to understand about Go templates is that {{ . }}
-always refers to the current context. In the top level of your template this
-will be the data set made available to it. Inside of a iteration it will have
-the value of the current item. When inside of a loop the context has changed. .
-will no longer refer to the data available to the entire page. If you need to
-access this from within the loop you will likely want to set it to a variable
-instead of depending on the context.</p>
-<p><strong>Example:</strong></p>
-<pre><code>  {{ $title := .Site.Title }}
-  {{ range .Params.tags }}
-    &lt;li&gt; &lt;a href=&quot;{{ $baseurl }}/tags/{{ . | urlize }}&quot;&gt;{{ . }}&lt;/a&gt; - {{ $title }} &lt;/li&gt;
-  {{ end }}
-</code></pre>
-<p>Notice how once we have entered the loop the value of {{ . }} has changed. We
-have defined a variable outside of the loop so we have access to it from within
-the loop.</p>
-<h1 id="hugo-parameters">Hugo Parameters</h1>
-<p>Hugo provides the option of passing values to the template language
-through the site configuration (for sitewide values), or through the meta
-data of each specific piece of content. You can define any values of any
-type (supported by your front matter/config format) and use them however
-you want to inside of your templates.</p>
-<h2 id="using-content-page-parameters">Using Content (page) Parameters</h2>
-<p>In each piece of content you can provide variables to be used by the
-templates. This happens in the <a href="/content/front-matter">front matter</a>.</p>
-<p>An example of this is used in this documentation site. Most of the pages
-benefit from having the table of contents provided. Sometimes the TOC just
-doesn't make a lot of sense. We've defined a variable in our front matter
-of some pages to turn off the TOC from being displayed.</p>
-<p>Here is the example front matter:</p>
-<pre><code>---
-title: &quot;Permalinks&quot;
-date: &quot;2013-11-18&quot;
-aliases:
-  - &quot;/doc/permalinks/&quot;
-groups: [&quot;extras&quot;]
-groups_weight: 30
-notoc: true
----
-</code></pre><p>Here is the corresponding code inside of the template:</p>
-<pre><code>  {{ if not .Params.notoc }}
-    &lt;div id=&quot;toc&quot; class=&quot;well col-md-4 col-sm-6&quot;&gt;
-    {{ .TableOfContents }}
-    &lt;/div&gt;
-  {{ end }}
-</code></pre>
-<h2 id="using-site-config-parameters">Using Site (config) Parameters</h2>
-<p>In your top-level configuration file (eg, <code>config.yaml</code>) you can define site
-parameters, which are values which will be available to you in chrome.</p>
-<p>For instance, you might declare:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">params<span class="p">:</span><span class="w">
-</span><span class="w">  </span>CopyrightHTML<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Copyright &amp;#xA9; 2013 John Doe. All Rights Reserved.&#34;</span><span class="w">
-</span><span class="w">  </span>TwitterUser<span class="p">:</span><span class="w"> </span><span class="s2">&#34;spf13&#34;</span><span class="w">
-</span><span class="w">  </span>SidebarRecentLimit<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span></code></pre></div><p>Within a footer layout, you might then declare a <code>&lt;footer&gt;</code> which is only
-provided if the <code>CopyrightHTML</code> parameter is provided, and if it is given,
-you would declare it to be HTML-safe, so that the HTML entity is not escaped
-again.  This would let you easily update just your top-level config file each
-January 1st, instead of hunting through your templates.</p>
-<pre><code>{{if .Site.Params.CopyrightHTML}}&lt;footer&gt;
-&lt;div class=&quot;text-center&quot;&gt;{{.Site.Params.CopyrightHTML | safeHtml}}&lt;/div&gt;
-&lt;/footer&gt;{{end}}
-</code></pre><p>An alternative way of writing the &ldquo;if&rdquo; and then referencing the same value
-is to use &ldquo;with&rdquo; instead. With rebinds the context <code>.</code> within its scope,
-and skips the block if the variable is absent:</p>
-<pre><code>{{with .Site.Params.TwitterUser}}&lt;span class=&quot;twitter&quot;&gt;
-&lt;a href=&quot;https://twitter.com/{{.}}&quot; rel=&quot;author&quot;&gt;
-&lt;img src=&quot;/images/twitter.png&quot; width=&quot;48&quot; height=&quot;48&quot; title=&quot;Twitter: {{.}}&quot;
- alt=&quot;Twitter&quot;&gt;&lt;/a&gt;
-&lt;/span&gt;{{end}}
-</code></pre><p>Finally, if you want to pull &ldquo;magic constants&rdquo; out of your layouts, you can do
-so, such as in this example:</p>
-<pre><code>&lt;nav class=&quot;recent&quot;&gt;
-  &lt;h1&gt;Recent Posts&lt;/h1&gt;
-  &lt;ul&gt;{{range first .Site.Params.SidebarRecentLimit .Site.Recent}}
-    &lt;li&gt;&lt;a href=&quot;{{.RelPermalink}}&quot;&gt;{{.Title}}&lt;/a&gt;&lt;/li&gt;
-  {{end}}&lt;/ul&gt;
-&lt;/nav&gt;
-</code></pre>]]></content>
 		</item>
 		
 		<item>
