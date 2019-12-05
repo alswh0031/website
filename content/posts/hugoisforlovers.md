@@ -1,10 +1,10 @@
 ---
-date: "2014-04-02"
+date: "2014-12-06"
 tags:
-- go
-- golang
-- hugo
-- development
+- python
+- scripting
+- control_flow
+- functions
 title: Getting Started with Hugo
 toc: true
 ---

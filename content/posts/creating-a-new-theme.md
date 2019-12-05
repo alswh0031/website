@@ -32,7 +32,7 @@ bah and humbug
 ## show it
 $ cat foo.md
 +++
-date = "2014-09-28"
+date = "2019-12-03"
 title = "creating a new theme"
 +++
 
