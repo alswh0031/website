@@ -7,91 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 06 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>control_flow</title>
-      <link>/tags/control_flow/</link>
-      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/control_flow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>functions</title>
-      <link>/tags/functions/</link>
-      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/functions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>/tags/python/</link>
-      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scripting</title>
-      <link>/tags/scripting/</link>
-      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/scripting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dataScience</title>
-      <link>/tags/datascience/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/datascience/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>modeling</title>
-      <link>/tags/modeling/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/modeling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>predicting</title>
-      <link>/tags/predicting/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/predicting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>testing</title>
-      <link>/tags/testing/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/testing/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>biochemistry</title>
@@ -99,6 +18,60 @@
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/biochemistry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>medicine</title>
+      <link>/tags/medicine/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/medicine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rhinovirus</title>
+      <link>/tags/rhinovirus/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rhinovirus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scientific_research</title>
+      <link>/tags/scientific_research/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/scientific_research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plot</title>
+      <link>/tags/plot/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/plot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R Markdown</title>
+      <link>/tags/r-markdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/r-markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     

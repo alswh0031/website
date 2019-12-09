@@ -7,21 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 06 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Python Basics 1</title>
-      <link>/posts/hugoisforlovers/</link>
-      <pubDate>Fri, 06 Dec 2019 00:00:00 +0000</pubDate>
+      <title>Python Basics: Control Flow and Functions</title>
+      <link>/posts/python-basics-control-flow-and-functions/</link>
+      <pubDate>Mon, 09 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/posts/hugoisforlovers/</guid>
-      <description>Download available at My Github Page
-First, load the dataset faithful.
-import pandas as pd faithful=pd.read_csv(&amp;quot;https://vincentarelbundock.github.io/Rdatasets/csv/datasets/faithful.csv&amp;quot;) x=faithful type(x) Check the dataset by loading the first five rows.
-faithful.head() </description>
+      <guid>/posts/python-basics-control-flow-and-functions/</guid>
+      <description> no  </description>
     </item>
     
     <item>
@@ -35,21 +32,12 @@ faithful.head() </description>
     </item>
     
     <item>
-      <title>Modeling, Testing, and Predicting</title>
-      <link>/posts/modeling-testing-and-predicting/</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/modeling-testing-and-predicting/</guid>
-      <description>library(knitr) hook_output = knit_hooks$get(&#39;output&#39;) knit_hooks$set(output = function(x, options) { # this hook is used only when the linewidth option is not NULL if (!is.null(n &amp;lt;- options$linewidth)) { x = knitr:::split_lines(x) # any lines wider than n should be wrapped if (any(nchar(x) &amp;gt; n)) x = strwrap(x, width = n) x = paste(x, collapse = &#39;\n&#39;) } hook_output(x, options)}) ```{R eval=F} data(package = .packages(all.available = TRUE)) #0. Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph.</description>
-    </item>
-    
-    <item>
       <title>About ㅇㅁㅈ</title>
       <link>/about-hugo/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/about-hugo/</guid>
-      <description>Hi there! My name is Min Jo Lee or Andrew; either works! I study Computational Biology and Business Healthcare at the University of Texas at Austin. I&#39;m currently learning how to incorporate knowledge and skills of Data Science into Healthcare and Medicine. Other than academic work, I play or watch soccer and enjoy writing film reviews.
+      <description>Hi there! My name is Min Jo Lee or Andrew; either works! I study Computational Biology and Business Healthcare at the University of Texas at Austin. I&#39;m currently learning how to incorporate knowledge and skills of Data Science into Healthcare and Medicine. Other than academic work, I play or watch soccer and enjoy cooking. Sometimes I write film reviews.
  📄 🏆 🔬 🇰🇷 Thanks for dropping by and feel free to contact via **andrewminjolee@gmail.</description>
     </item>
     
@@ -75,29 +63,6 @@ Human rhinovirus is a virus that causes common cold illnesses. Rhinovirus C (RV-
     </item>
     
     <item>
-      <title>The &#34;figure&#34; Shortcode</title>
-      <link>/posts/the-figure-shortcode/</link>
-      <pubDate>Mon, 24 Dec 2018 12:29:41 +0800</pubDate>
-      
-      <guid>/posts/the-figure-shortcode/</guid>
-      <description>Hugo has figure shortcode built in, so you can easily add figcaptions or hyperlink rel attributes to images. Documentations can be found here:
-https://gohugo.io/content-management/shortcodes/#figure
-This theme has 3 CSS classes made for figure elements:
- big: images will break the width limit of main content area. left: images will float to the left. right: images will float to the right.  If a figure has no class set, the image will behave just like a normal markdown image: !</description>
-    </item>
-    
-    <item>
-      <title>Post With Featured Image</title>
-      <link>/posts/post-with-featured-image/</link>
-      <pubDate>Mon, 01 Oct 2018 16:15:09 +0800</pubDate>
-      
-      <guid>/posts/post-with-featured-image/</guid>
-      <description>Just define the image URL in the content’s front matter, the featured image will be displayed as the background.
-For example:
----images:-https://picsum.photos/1024/768/?random---This is an array, you can set multiple urls, only the first url will be used. These images is also used in Twitter Cards and the Open Graph metadata.</description>
-    </item>
-    
-    <item>
       <title>Hello R Markdown</title>
       <link>/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
@@ -106,16 +71,6 @@ For example:
       <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>Creating a New Theme</title>
-      <link>/posts/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&#39;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&#39;t cover using CSS to style your theme.
-We&#39;ll start with creating a new site with a very basic template.</description>
     </item>
     
   </channel>

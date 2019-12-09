@@ -1,14 +1,13 @@
 ---
-title: 'Python Basics: String Flow and Function'
+title: 'Python Basics: Control Flow and Functions'
 author: ''
 date: '2019-12-09'
-slug: python-basics-string-flow-and-function
+slug: python-basics-control-flow-and-functions
 categories: []
 tags: []
-comments: no
+toc: no
 images: ~
 ---
-
 #Run the following code in order to use python on RStudio
 ```{r setup, include=FALSE, echo=TRUE}
 library(reticulate)
