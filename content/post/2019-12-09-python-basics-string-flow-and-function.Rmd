@@ -1,0 +1,11 @@
+---
+title: 'Python Basics: String Flow and Function'
+author: ''
+date: '2019-12-09'
+slug: python-basics-string-flow-and-function
+categories: []
+tags: []
+comments: no
+images: ~
+---
+

@@ -1,0 +1,87 @@
+---
+title: 'Python Basics: String Flow and Function'
+author: ''
+date: '2019-12-09'
+slug: python-basics-string-flow-and-function
+categories: []
+tags: []
+comments: no
+images: ~
+---
+
+#Run the following code in order to use python on RStudio
+```{r setup, include=FALSE, echo=TRUE}
+library(reticulate)
+use_python("/usr/bin/python")
+```
+
+```{python}
+x = 'hello world'
+print(x)
+```
+
+#Load the data faithful. Examine the type of the object. Find the minimum and maximum values of the variables eruptions and waiting.
+```{python}
+faithful=r.faithful 
+import pandas as pd
+faithful=pd.read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/datasets/faithful.csv")
+
+x=faithful
+type(x)
+```
+
+
+```{python}
+faithful.head()
+```
+
+```{python}
+faithful.eruptions.max() #max for eruptions
+```
+
+```{python}
+faithful.eruptions.min() #min for eruptions
+```
+
+```{python}
+faithful.waiting.max() #max for waiting
+```
+
+```{python}
+faithful.waiting.min() #min for waiting
+```
+
+#Import numpy and use functions from it to compute the mean, median, and variance for each variable. Compute the correlation between the two variables using corrcoef (it will return a matrix). Access individual variables in a dataframe using the . operator (e.g., faithful.eruptions).
+```{python}
+import numpy as np
+
+np.mean(faithful['eruptions'])
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
