@@ -10,19 +10,128 @@
 		<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Python Basics: Control Flow and Functions</title>
+			<title>Python Basics: Regular Expressions</title>
 			<link>/posts/python-basics-control-flow-and-functions/</link>
 			<pubDate>Mon, 09 Dec 2019 00:00:00 +0000</pubDate>
 			
 			<guid>/posts/python-basics-control-flow-and-functions/</guid>
-			<description> no  </description>
+			<description>#Run the following code in order to use python on RStudio
+x = &amp;#39;hello world&amp;#39; print(x) ## hello world #The following presents with several real-world strings. The task is to use regular expressions in python to match (and return) the requested parts in each
+#Using re.findall(), match all numbers and pull them from the following string (string1).
+import re string1=&amp;quot;We have to extract these numbers 12, 47, 48 The integers numbers are also interesting: 189 2036 314\&amp;#39;,\&amp;#39; is a separator, so please extract these numbers 125,789,1450 and also these 564,90456 We like to offer you 7890$ per month in order to complete this task.</description>
 			<content type="html"><![CDATA[
 
-<div id="TOC">
-no
-</div>
+
+<p>#Run the following code in order to use python on RStudio</p>
+<pre class="python"><code>x = &#39;hello world&#39;
+print(x)</code></pre>
+<pre><code>## hello world</code></pre>
+<p>#The following presents with several real-world strings. The task is to use regular expressions in python to match (and return) the requested parts in each</p>
+<p>#Using re.findall(), match all numbers and pull them from the following string (string1).</p>
+<pre class="python"><code>import re
+
+string1=&quot;We have to extract these numbers 12, 47, 48 The integers numbers are also interesting: 189 2036 314\&#39;,\&#39; is a separator, so please extract these numbers 125,789,1450 and also these 564,90456 We like to offer you 7890$ per month in order to complete this task... we are joking&quot;
+print(string1)</code></pre>
+<pre><code>## We have to extract these numbers 12, 47, 48 The integers numbers are also interesting: 189 2036 314&#39;,&#39; is a separator, so please extract these numbers 125,789,1450 and also these 564,90456 We like to offer you 7890$ per month in order to complete this task... we are joking</code></pre>
+<pre class="python"><code>re.findall(r&#39;[0-9]+&#39;, string1)</code></pre>
+<pre><code>## [&#39;12&#39;, &#39;47&#39;, &#39;48&#39;, &#39;189&#39;, &#39;2036&#39;, &#39;314&#39;, &#39;125&#39;, &#39;789&#39;, &#39;1450&#39;, &#39;564&#39;, &#39;90456&#39;, &#39;7890&#39;]</code></pre>
+<p>#Using <code>re.findall()</code>, match all IP addressses in this string (string2).</p>
+<pre class="python"><code>string2=&quot;Jan 13 00:48:59: DROP service 68-&gt;67(udp) from 213.92.153.167 to 69.43.107.219, prefix: \&quot;spoof iana-0/8\&quot; \
+(in: eth0 69.43.112.233(38:f8:b7:90:45:92):68 -&gt; 217.70.100.113(00:21:87:79:9c:d9):67 UDP len:576 ttl:64) \
+Jan 13 12:02:48: ACCEPT service dns from 74.125.186.208 to firewall(pub-nic-dns), prefix: \&quot;none\&quot; \
+(in: eth0 74.125.186.208(00:1a:e3:52:5d:8e):36008 -&gt; 140.105.63.158(00:1a:9a:86:2e:62):53 UDP len:82 ttl:38) \
+Jan 13 17:44:52: DROP service 68-&gt;67(udp) from 172.45.240.237 to 217.70.177.60, prefix: \&quot;spoof iana-0/8\&quot; \
+(in: eth0 216.34.90.16(00:21:91:fe:a2:6f):68 -&gt; 69.43.85.253(00:07:e1:7c:53:db):67 UDP len:328 ttl:64) \
+Jan 13 17:52:08: ACCEPT service http from 213.121.184.130 to firewall(pub-nic), prefix: \&quot;none\&quot; \
+(in: eth0 213.121.184.130(00:05:2e:6a:a4:14):8504 -&gt; 140.105.63.164(00:60:11:92:ed:1b):80 TCP flags: ****S* len:52 ttl:109)&quot;
+
+re.findall(r&#39;[0-9]+(?:\.[0-9]+){3}&#39;, string2)</code></pre>
+<pre><code>## [&#39;213.92.153.167&#39;, &#39;69.43.107.219&#39;, &#39;69.43.112.233&#39;, &#39;217.70.100.113&#39;, &#39;74.125.186.208&#39;, &#39;74.125.186.208&#39;, &#39;140.105.63.158&#39;, &#39;172.45.240.237&#39;, &#39;217.70.177.60&#39;, &#39;216.34.90.16&#39;, &#39;69.43.85.253&#39;, &#39;213.121.184.130&#39;, &#39;213.121.184.130&#39;, &#39;140.105.63.164&#39;]</code></pre>
+<p>#Using <code>re.findall()</code>, match all MAC addressses in the same string (string2).</p>
+<pre class="python"><code>re.findall(r&#39;(?:[0-9a-fA-F]:?){12}&#39;, string2)</code></pre>
+<pre><code>## [&#39;38:f8:b7:90:45:92&#39;, &#39;00:21:87:79:9c:d9&#39;, &#39;00:1a:e3:52:5d:8e&#39;, &#39;00:1a:9a:86:2e:62&#39;, &#39;00:21:91:fe:a2:6f&#39;, &#39;00:07:e1:7c:53:db&#39;, &#39;00:05:2e:6a:a4:14&#39;, &#39;00:60:11:92:ed:1b&#39;]</code></pre>
+<p>#Using re.findall(), match all ftp addresses in the string below (string3).</p>
+<pre class="python"><code>string3=r&quot;Fedora Core       ftp     \
+Fedora Extras   http    ftp     rsync\
+          ftp://ftp7.br.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp3.de.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp.is.FreeBSD.org/pub/FreeBSD/ (ftp / rsync)\
+          ftp://ftp4.jp.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp.no.FreeBSD.org/pub/FreeBSD/ (ftp / rsync)\
+        *\
+          ftp://ftp3.no.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp.pt.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp1.ro.FreeBSD.org/pub/FreeBSD/ (ftp / ftpv6)\
+          ftp://ftp3.es.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp2.tw.FreeBSD.org/pub/FreeBSD/ (ftp / ftpv6 / http / httpv6 / rsync / rsyncv6)\
+          ftp://ftp6.uk.FreeBSD.org/pub/FreeBSD/ (ftp)\
+          ftp://ftp6.us.FreeBSD.org/pub/FreeBSD/ (ftp / http)&quot;
+
+re.findall(r&#39;(ftp?://[^\s]+)&#39;, string3)</code></pre>
+<pre><code>## [&#39;ftp://ftp7.br.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp3.de.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp.is.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp4.jp.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp.no.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp3.no.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp.pt.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp1.ro.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp3.es.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp2.tw.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp6.uk.FreeBSD.org/pub/FreeBSD/&#39;, &#39;ftp://ftp6.us.FreeBSD.org/pub/FreeBSD/&#39;]</code></pre>
+<p>#Using re.findall(), match all latex math-mode text (anything wrapped in $, including the $s) in the string below (string4).</p>
+<pre class="python"><code>string4=r&quot;We try to quantitatively capture these characteristics by defining a set of indexes,\
+which can be computed using the mosaic image and the corresponding ground truth: \
+\begin{itemize} \
+    \item $\mu_{A_T}$ and $\sigma_{A_T}$, the mean and standard deviation of the tiles area $A_T$, respectively; \
+    \item $\rho_\text{filler}$, the ratio between the filler area and the overall mosaic are, computed as \
+$\rho_\text{filler}=\frac{\sum_{T \in \mathcal{T} A_T}}{A}$, being $A$ the area of the mosaic; \
+    \item \todo{does it worth?}; \
+    \item \todo{does it worth?}; \
+    \item $\mu_{C_T}$, the mean of the tiles \emph{color dispersion} $C_T$, \
+being $C_T = \sigma_R+\sigma_G+\sigma_B$, where $\sigma_R$, $\sigma_G$ and $\sigma_B$ are the \
+standard deviation of the red, green and blue channel values of the pixels within the tile $T$.\
+After applying a method to an image, we compare the segmented image (i.e., the result) \
+against the ground truth and assess the performance according to the following three metrics: \
+\begin{itemize} \
+    \item average tile precision $P$ \
+    \item average tile recall $R$ \
+    \item tile count error $C$&quot;
 
 
+re.findall(r&#39;\$.*?\$&#39;, string4)</code></pre>
+<pre><code>## [&#39;$\\mu_{A_T}$&#39;, &#39;$\\sigma_{A_T}$&#39;, &#39;$A_T$&#39;, &#39;$\\rho_\\text{filler}$&#39;, &#39;$\\rho_\\text{filler}=\\frac{\\sum_{T \\in \\mathcal{T} A_T}}{A}$&#39;, &#39;$A$&#39;, &#39;$\\mu_{C_T}$&#39;, &#39;$C_T$&#39;, &#39;$C_T = \\sigma_R+\\sigma_G+\\sigma_B$&#39;, &#39;$\\sigma_R$&#39;, &#39;$\\sigma_G$&#39;, &#39;$\\sigma_B$&#39;, &#39;$T$&#39;, &#39;$P$&#39;, &#39;$R$&#39;, &#39;$C$&#39;]</code></pre>
+<p>#Using re.findall(), match all text of the form href=“…” in the string below (string5).</p>
+<pre class="python"><code>string5=&quot;&lt;a href=\&quot;javascript:openurl(&#39;/Xplore/accessinfo.jsp&#39;)\&quot; class=\&quot;topUnderlineLinks\&quot;&gt;\
+                                            &lt;A href=\&quot;/iel5/4235/4079606/04079617.pdf?tp=&amp;arnumber=4079617&amp;isnumber=4079606\&quot; class=\&quot;bodyCopy\&quot;&gt;PDF&lt;/A&gt;(3141 KB)&amp;nbsp;\
+                        &lt;A href=&#39;/xpl/RecentCon.jsp?punumber=10417&#39;&gt;Evolutionary Computation, 2005. The 2005 IEEE Congress on&lt;/A&gt;&lt;br&gt;\
+                &lt;td width=\&quot;33%\&quot; &gt;&lt;div align=\&quot;right\&quot;&gt; &lt;a href=\&quot;/xplorehelp/Help_start.html#Help_searchresults.html\&quot; class=\&quot;subNavLinks\&quot; target=\&quot;blank\&quot;&gt;Help&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href=\&quot;/xpl/contactus.jsp\&quot; class=\&quot;subNavLinks\&quot;&gt;Contact\
+                Kimya ile ilgili çeþitli temel referans\
+&lt;a href=\&quot;http://search.epnet.com/login.asp?profile=web&amp;amp;defaultdb=geh\&quot;\
+&lt;a href=\&quot;http://iimpft.chadwyck.com/\&quot; target=\&quot;_parent\&quot;&gt;International\
+&lt;a href=\&quot;standartlar.html#tse\&quot; target=\&quot;_parent\&quot;&gt;NFPA Standartlarý&lt;/a&gt;\
+&lt;a href=\&quot;http://www.gutenberg.org/\&quot; target=\&quot;_parent\&quot;&gt;Project Gutenberg&lt;/a&gt;\
+&lt;a href=\&quot;http://proquestcombo.safaribooksonline.com/?portal=proquestcombo&amp;amp;uicode=istanbultek\&quot;\
+&lt;a href=\&quot;http://www.scitation.org\&quot; target=\&quot;_parent\&quot;&gt;Scitation&lt;/a&gt;\
+dergilerin listesini görmek için &lt;a href=\&quot;/online/aip.html\&quot;&gt;bu yolu&lt;/a&gt;\
+&lt;a href=\&quot;http://www3.interscience.wiley.com/journalfinder.html\&quot;\
+               &lt;td width=\&quot;46%\&quot;&gt;&lt;a href=\&quot;/xpl/periodicals.jsp\&quot; class=\&quot;dropDownNav\&quot; accesskey=\&quot;j\&quot;&gt;Journals &amp;amp; Magazines\
+               &lt;td&gt;&lt;a href=\&quot;http://www.ieee.org/products/onlinepubs/resources/XploreTutorial.pdf\&quot; class=\&quot;dropDownNav\&quot;&gt;IEEE Xplore Demo&lt;/a&gt;&lt;/td&gt;&quot;
+
+
+re.findall(r&#39;href=&quot;.*?&quot;&#39;, string5)</code></pre>
+<pre><code>## [&#39;href=&quot;javascript:openurl(\&#39;/Xplore/accessinfo.jsp\&#39;)&quot;&#39;, &#39;href=&quot;/iel5/4235/4079606/04079617.pdf?tp=&amp;arnumber=4079617&amp;isnumber=4079606&quot;&#39;, &#39;href=&quot;/xplorehelp/Help_start.html#Help_searchresults.html&quot;&#39;, &#39;href=&quot;/xpl/contactus.jsp&quot;&#39;, &#39;href=&quot;http://search.epnet.com/login.asp?profile=web&amp;amp;defaultdb=geh&quot;&#39;, &#39;href=&quot;http://iimpft.chadwyck.com/&quot;&#39;, &#39;href=&quot;standartlar.html#tse&quot;&#39;, &#39;href=&quot;http://www.gutenberg.org/&quot;&#39;, &#39;href=&quot;http://proquestcombo.safaribooksonline.com/?portal=proquestcombo&amp;amp;uicode=istanbultek&quot;&#39;, &#39;href=&quot;http://www.scitation.org&quot;&#39;, &#39;href=&quot;/online/aip.html&quot;&#39;, &#39;href=&quot;http://www3.interscience.wiley.com/journalfinder.html&quot;&#39;, &#39;href=&quot;/xpl/periodicals.jsp&quot;&#39;, &#39;href=&quot;http://www.ieee.org/products/onlinepubs/resources/XploreTutorial.pdf&quot;&#39;]</code></pre>
+<p>#Using re.findall(), match all urls in the string below (string6).</p>
+<pre class="python"><code>string6=&quot;&lt;http://www.classmates.com/go/e/200988231/CC123101BT/CM00&gt;  &lt;http://graphics.classmates.com/graphics/spacer.gif&gt;  &lt;http://graphics.classmates.com/graphics/sp \
+You have received this email because the requester specified you as their Manager. Please click http://itcapps.corp.enron.com/srrs/auth/emailLink.asp?ID=000000000053239&amp;Page=Approval to review and act upon this request.     Request ID          : 000000000053239 Request Create Date\
+ronOnline.   The following User ID and Password will give you access to live prices on the web-site http://www.enrononline.com.  User ID: ADM40601 Password: WELCOME!   (note these are case sensitive)    Please keep your User I\
+&lt;http://www.classmates.com/go/e/200988231/CC122401BC/CM00&gt;  &lt;http://graphics.classmates.com/graphics/spacer.gif&gt;  &lt;http://graphics.classmates.com/graphics/sp\
+http://www.btinternet.com/~pir8/arnie/\
+n, just click on the following hyperlink and complete the order form by Tuesday February 12, 2002.  http://zzz1.net/rd/rd.asp?ZXU=562&amp;ZXD=1471085&amp;UID=1471085  If you cannot link directly to the web site, simply cut and paste the address listed above into yo\
+been successful getting in the group. To access the group should go to your web browser and type in http://www.egroups.com  The screen should show that you are a member of smu-betas group. When you replied to the original \
+mber and password. For more details on how to log-on to eHRonline, see step-by-step instructions at http://isc.enron.com/site/doclibrary/user/ 2. Navigate to the pay advice using the following navigation menus: ? Pay Information ? Paycheck I\
+In addition to World Markets Energy information  &lt;http://esource.enron.com/worldmarket.asp&gt; and Country Analysis and Forecasting, &lt;http://esource.enron.com/worldmarket_CountryAnalysis.asp&gt;  \
+&lt;http://ad.doubleclick.net/clk;3549492;6600300;c?http://www.sportingbetusa.com/english/casino/casinonew-fr.asp?isLogged=notlogged&gt; A WEEKEND PAIR-A-DICE &lt;http://ad.doubleclick.net/clk;3549492;6600300;c?http://www.sportingbetusa.c \
+Mr. Skilling:  Your P number is P00500599.  For your convenience, you can also go to http://isc.enron.com/site/ under&quot;
+
+re.findall(r&#39;(http?://[^\s]+)&#39;, string6)</code></pre>
+<pre><code>## [&#39;http://www.classmates.com/go/e/200988231/CC123101BT/CM00&gt;&#39;, &#39;http://graphics.classmates.com/graphics/spacer.gif&gt;&#39;, &#39;http://graphics.classmates.com/graphics/sp&#39;, &#39;http://itcapps.corp.enron.com/srrs/auth/emailLink.asp?ID=000000000053239&amp;Page=Approval&#39;, &#39;http://www.enrononline.com.&#39;, &#39;http://www.classmates.com/go/e/200988231/CC122401BC/CM00&gt;&#39;, &#39;http://graphics.classmates.com/graphics/spacer.gif&gt;&#39;, &#39;http://graphics.classmates.com/graphics/sphttp://www.btinternet.com/~pir8/arnie/n,&#39;, &#39;http://zzz1.net/rd/rd.asp?ZXU=562&amp;ZXD=1471085&amp;UID=1471085&#39;, &#39;http://www.egroups.com&#39;, &#39;http://isc.enron.com/site/doclibrary/user/&#39;, &#39;http://esource.enron.com/worldmarket.asp&gt;&#39;, &#39;http://esource.enron.com/worldmarket_CountryAnalysis.asp&gt;&#39;, &#39;http://ad.doubleclick.net/clk;3549492;6600300;c?http://www.sportingbetusa.com/english/casino/casinonew-fr.asp?isLogged=notlogged&gt;&#39;, &#39;http://ad.doubleclick.net/clk;3549492;6600300;c?http://www.sportingbetusa.c&#39;, &#39;http://isc.enron.com/site/&#39;]</code></pre>
+<p>#In the following string (string7), using <code>re.findall()</code>, match restriction enzyme binding sites ANTAAT and GCRWTG. Note that per the IUPAC nucleotide code, N is any base, R is A or G, W is A or T. How many cuts total in the sequence do you expect if you digest with both of these restriction enzymes? How many fragments do you expect?</p>
+<pre class="python"><code>string7=&quot;ATGGCAATAACCCCCCGTTTCTACTTCTAGAGGAGAAAAGTATTGACATGAGCGCTCCCGGCACAAGGGCCAAAGAAGTCTCCAATTTCTTATTTCCGAATGACATGCGTCTCCTTGCGGGTAAATCACCGACCGCAATTCATAGAAGCCTGGGGGAACAGATAGGTCTAATTAGCTTAAGAGAGTAAATCCTGGGATCATTCAGTAGTAACCATAAACTTACGCTGGGGCTTCTTCGGCGGATTTTTACAGTTACCAACCAGGAGATTTGAAGTAAATCAGTTGAGGATTTAGCCGCGCTATCCGGTAATCTCCAAATTAAAACATACCGTTCCATGAAGGCTAGAATTACTTACCGGCCTTTTCCATGCCTGCGCTATACCCCCCCACTCTCCCGCTTATCCGTCCGAGCGGAGGCAGTGCGATCCTCCGTTAAGATATTCTTACGTGTGACGTAGCTATGTATTTTGCAGAGCTGGCGAACGCGTTGAACACTTCACAGATGGTAGGGATTCGGGTAAAGGGCGTATAATTGGGGACTAACATAGGCGTAGACTACGATGGCGCCAACTCAATCGCAGCTCGAGCGCCCTGAATAACGTACTCATCTCAACTCATTCTCGGCAATCTACCGAGCGACTCGATTATCAACGGCTGTCTAGCAGTTCTAATCTTTTGCCAGCATCGTAATAGCCTCCAAGAGATTGATGATAGCTATCGGCACAGAACTGAGACGGCGCCGATGGATAGCGGACTTTCGGTCAACCACAATTCCCCACGGGACAGGTCCTGCGGTGCGCATCACTCTGAATGTACAAGCAACCCAAGTGGGCCGAGCCTGGACTCAGCTGGTTCCTGCGTGAGCTCGAGACTCGGGATGACAGCTCTTTAAACATAGAGCGGGGGCGTCGAACGGTCGAGAAAGTCATAGTACCTCGGGTACCAACTTACTCAGGTTATTGCTTGAAGCTGTACTATTTTAGGGGGGGAGCGCTGAAGGTCTCTTCTTCTCATGACTGAACTCGCGAGGGTCGTGAAGTCGGTTCCTTCAATGGTTAAAAAACAAAGGCTTACTGTGCGCAGAGGAACGCCCATCTAGCGGCTGGCGTCTTGAATGCTCGGTCCCCTTTGTCATTCCGGATTAATCCATTTCCCTCATTCACGAGCTTGCGAAGTCTACATTGGTATATGAATGCGACCTAGAAGAGGGCGCTTAAAATTGGCAGTGGTTGATGCTCTAAACTCCATTTGGTTTACTCGTGCATCACCGCGATAGGCTGACAAAGGTTTAACATTGAATAGCAAGGCACTTCCGGTCTCAATGAACGGCCGGGAAAGGTACGCGCGCGGTATGGGAGGATCAAGGGGCCAATAGAGAGGCTCCTCTCTCACTCGCTAGGAGGCAAATGTAAAACAATGGTTACTGCATCGATACATAAAACATGTCCATCGGTTGCCCAAAGTGTTAAGTGTCTATCACCCCTAGGGCCGTTTCCCGCATATAAACGCCAGGTTGTATCCGCATTTGATGCTACCGTGGATGAGTCTGCGTCGAGCGCGCCGCACGAATGTTGCAATGTATTGCATGAGTAGGGTTGACTAAGAGCCGTTAGATGCGTCGCTGTACTAATAGTTGTCGACAGACCGTCGAGATTAGAAAATGGTACCAGCATTTTCGGAGGTTCTCTAACTAGTATGGATTGCGGTGTCTTCACTGTGCTGCGGCTACCCATCGCCTGAAATCCAGCTGGTGTCAAGCCATCCCCTCTCCGGGACGCCGCATGTAGTGAAACATATACGTTGCACGGGTTCACCGCGGTCCGTTCTGAGTCGACCAAGGACACAATCGAGCTCCGATCCGTACCCTCGACAAACTTGTACCCGACCCCCGGAGCTTGCCAGCTCCTCGGGTATCATGGAGCCTGTGGTTCATCGCGTCCGATATCAAACTTCGTCATGATAAAGTCCCCCCCTCGGGAGTACCAGAGAAGATGACTACTGAGTTGTGCGAT&quot;
+
+re.findall(r&quot;A[ATGC]TAAT|GC[AG][AT]TG&quot;, string7) 
+#Four cuts in the sequence and five fragments. </code></pre>
+<pre><code>## [&#39;GCGTTG&#39;, &#39;ATTAAT&#39;, &#39;GCAATG&#39;, &#39;ACTAAT&#39;]</code></pre>
 ]]></content>
 		</item>
 		

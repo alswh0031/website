@@ -13,12 +13,15 @@
     
     
     <item>
-      <title>Python Basics: Control Flow and Functions</title>
+      <title>Python Basics: Regular Expressions</title>
       <link>/posts/python-basics-control-flow-and-functions/</link>
       <pubDate>Mon, 09 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/python-basics-control-flow-and-functions/</guid>
-      <description> no  </description>
+      <description>#Run the following code in order to use python on RStudio
+x = &amp;#39;hello world&amp;#39; print(x) ## hello world #The following presents with several real-world strings. The task is to use regular expressions in python to match (and return) the requested parts in each
+#Using re.findall(), match all numbers and pull them from the following string (string1).
+import re string1=&amp;quot;We have to extract these numbers 12, 47, 48 The integers numbers are also interesting: 189 2036 314\&amp;#39;,\&amp;#39; is a separator, so please extract these numbers 125,789,1450 and also these 564,90456 We like to offer you 7890$ per month in order to complete this task.</description>
     </item>
     
     <item>
